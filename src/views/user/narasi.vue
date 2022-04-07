@@ -1,5 +1,5 @@
 <template>
-<Nav />
+  <Nav />
   <div class="wrapper">
     <div>
       <div class="content-header">
@@ -8,21 +8,31 @@
             <div class="row justify-content-center">
               <div class="col-md-12">
                 <div style="text-align: center; margin-top: 20%">
-                  <h2>Selamat datang di PA Tulungagung</h2>
-                  <br />
-                  <h3>
-                    <router-link
-                            :to="{ name: 'syarat-berperkara' }"
-                            href="#"
-                            >Syarat Berperkara</router-link
-                          >
-                    |
-                     <router-link
-                            :to="{ name: 'perceraian' }"
-                            href="#"
-                            >Perceraian</router-link
-                          >
-                  </h3>
+                  <!-- error warning -->
+                  <div id="errMsg" style="display:none" class="box no-border errMsg">
+                    <div class="box-tools">
+                      <p class="alert alert-warning alert-dismissible">
+                        Narasi tidak tersedia. Silahkan lakukan rekaman terlebih
+                        dahulu!
+                        <button
+                          type="button"
+                          @click.prevent="closeMsg"
+                          class="close"
+                          data-hide="alert"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                  <!-- end error warning -->
+                  <ckeditor
+                    id="long_desc"
+                    :editor="editor"
+                    v-model="form.narration"
+                    :config="editorConfig"
+                  ></ckeditor>
                 </div>
               </div>
             </div>
@@ -34,7 +44,12 @@
 </template>
 
 <script>
-import Nav from './partials/Nav.vue';
+import jQuery from "jquery";
+const $ = jQuery;
+window.$ = $;
+import Nav from "./partials/Nav.vue";
+import { Form } from "vform";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default {
   beforeCreate: function () {
@@ -45,30 +60,34 @@ export default {
   },
   data() {
     return {
-      staffData: "",
-      runtimeTranscription_: "",
-      transcription_: [],
-      lang_: "id-ID",
-      synth: window.speechSynthesis,
-      voiceList: [],
-      botSpeech: new window.SpeechSynthesisUtterance(),
-      placeholderValue: "Send a voice!",
-      isClicked: false,
-      currentRec: "",
-      //userVoice: "",
-      indexChatUser: 0,
-      indexChatBot: 0,
-      countOpenFab: 0,
-      voiceTimeout: 0,
+      editor: ClassicEditor,
+      editorConfig: {
+        // The configuration of the editor.
+      },
+      form: new Form({
+        narration: "",
+      }),
     };
   },
   methods: {
-    
+    loadData() {
+      this.form.narration = localStorage.getItem("narration");
+    },
+    showMsg() {
+      if (this.form.narration === null) {
+        $("#errMsg").show("fast");
+      }
+    },
+    closeMsg() {
+      $("#errMsg").hide("slow");
+    },
   },
   created() {
-    //this.checkAuth();
+   this.loadData();
   },
-  mounted() {},
+  mounted() {
+    this.showMsg();
+  },
 };
 </script>
 

@@ -109,7 +109,7 @@ Hak-hak Istri:
 - Mut'ah (Tali Asih / Kenang-kenangan / Pemberian Mantan Suami kepada Mantan Istri)
   Berapa Biaya yang ingin diberikan?
 
-
+[OUTPUT]
 Bahwa pada tanggal 17 Oktober 2005, Pemohon dan Termohon telah melangsungkan pernikahan yang dicatat oleh Pegawai Pencatat Nikah pada Kantor Urusan Agama (KUA) Kecamatan sdfwe, sebagaimana sesuai dengan Kutipan Akta Nikah Nomor : 34535, tertanggal 17 September 2007;
 Bahwa setelah menikah, Pemohon dan Termohon tinggal bersama di rumah orang tua Pemohon selama 4 dan belum di karuniai anak;
 Bahwa sejak Februsefg keadaan rumah tangga Pemohon dan Termohon mulai tidak harmonis disebabkan karena :
@@ -120,6 +120,130 @@ jkhgjghjf
 Bahwa Termohon yang ditalak wajib menjalani masa iddah sesuai dengan ketentuan syara’, karenanya Pemohon bersedia memberi nafkah kepada Termohon selama masa iddah sejumlah Rp. 43.534 serta mut’ah sebagai penghibur bagi Termohon sejumlah Rp. 43.534;
 Bahwa berdasarkan dalil-dalil di atas, telah cukup alasan bagi Pemohon untuk mengajukan Permohonan ini sebagaimana dimaksud dalam Pasal 19 Peraturan Pemerintah No. 9 Tahun 1975, dan untuk itu Pemohon mohon kepada Bapak Ketua Mahkamah Syar'iyah Bireuen kiranya berkenan menerima dan memeriksa perkara ini;
 Bahwa Pemohon sanggup membayar biaya yang timbul dalam perkara ini;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+jenis kelamin
+
+Email dan No Handphone (WA) :
+
+Apakah Anda Penyandang Disabilitas?
+  Ya
+    Buta
+    Tuli
+    Bisu
+    Cacat Fisik
+    Keterbelakangan Mental 
+    Cacat Pengendalian Diri
+    Cacat Kombinasi
+
+Siapa yang akan mengisi formulir aplikasi ini?
+  Posbakum
+  Kuasa hukum / Pengacara 
+  Pribadi / Perorangan
+    Apakah Anda membutuhkan penasehat hukum?
+      Tidak
+      Ya, saya membutuhkan penasehat hukum dari layanan Posbakum
+
+Apakah Anda Menginginkan Pembebasan Biaya Perkara (Prodeo)? 
+  Ya
+    Surat Keterangan Tidak Mampu -> Isikan nomor
+    Kartu Keluarga Miskin -> Isikan nomor
+    Kartu Jaminan Kesehatan Masyarakat -> Isikan nomor
+    Kartu Beras Miskin -> Isikan nomor
+    Kartu Program Keluarga Harapan -> Isikan nomor
+    Kartu Bantuan Langsung Tunai -> Isikan nomor
+    Kartu Perlindungan Sosial -> Isikan nomor
+    Terdaftar Sebagai Penduduk Miskin -> Isikan nomor
+
+Nama Lengkap & Nama Ayah 
+
+Tempat/ Tanggal Lahir
+
+Agama
+
+Apakah Anda Warga Negara Indonesia? 
+   Pilih Negara Anda
+   NIK
+   Pekerjaan
+   Penghasilan
+   Pendidikan Terakhir 
+   Tempat Kediaman
+   Apakah Anda dan istri Anda masih tinggal satu rumah?
+      Ya
+         Nama Lengkap Istri. 
+         Tempat / Tanggal Lahir istri
+         Agama Istri  
+         NIK
+         Pekerjaan
+         Pendidikan Terakhir
+      Tidak 
+         Apakah Anda mengetahui keberadaan istri Anda? 
+            Ya 
+               Nama Lengkap Istri. 
+               Tempat / Tanggal Lahir istri
+               Agama Istri  
+               NIK
+               Pekerjaan
+               Pendidikan Terakhir
+            Tidak
+               Isikan nomor keterangan bahwa istri tidak jelas alamatnya. 
+
+Apakah Anda dan SUAMI Anda masih tinggal satu rumah?
+
+[NEW]
+Masukan Identitas SUAMI Anda.
+   Nama Lengkap
+   Tempat tanggal Lahir
+   Agama
+   NIK
+   Pekerjaan
+   Pendidikan Terakhir
+
+Identitas Pernikahan:
+KUA tempat menikah. 
+Nomor kutipan akta nikah. 
+Tanggal menikah. 
+Tanggal kutipan akta nikah. 
+Apakah Anda dan suami Hidup Rukun setelah menikah?
+Apakah Selama Pernikahan Anda dan suami dikaruniai anak?
+   Ya
+      Nama anak
+      Jenis kelamin
+      Tempat / Tanggal Lahir
+      Agama 
+      status
+      Pendidikan
+      Dengan siapa anak tinggal? 
+
+Setelah menikah, di manakah Anda dan Pasangan Anda hidup bersama dan berapa lama?
+
+Terakhir Tinggal Bersama dimana?? (alamat)
+
+Sejak kapan rumah tangga tidak harmonis? 
+
+[OUTPUT]
+Bahwa pada tanggal 18 November 2008, Penggugat dan Tergugat telah melangsungkan pernikahan yang dicatat oleh Pegawai Pencatat Nikah pada Kantor Urusan Agama (KUA) Kecamatan sdfwe, sebagaimana sesuai dengan Kutipan Akta Nikah Nomor : 34535, tertanggal 16 Juli 2009;
+Bahwa setelah menikah, Penggugat dan Tergugat tinggal bersama di rumah orang tua Penggugat selama 5 dan belum di karuniai anak;
+Bahwa sejak Februsefg keadaan rumah tangga Penggugat dan Tergugat mulai tidak harmonis disebabkan karena :
+
+Bahwa sejak dsfew hukungan antara Penggugat dan Tergugat mulai tidak harmonis, sering terjadi peselisihan dan pertengkaran yang di sebabkan oleh jkhjkg;;
+Bahwa puncak perselisihan dan pertengkaran terjadi pada sdfew34 sdfewrew;
+Bahwa pihak keluarga telah berusaha memberi nasehat, akan tetapi tidak berhasil karena Penggugat tetap pada prinsip untuk bercerai karena Tergugat sudah tidak mempunyai i’tikad baik lagi untuk menjalankan kehidupan rumah tangga
+Bahwa berdasarkan dalil-dalil di atas, telah cukup alasan bagi Penggugat untuk mengajukan Gugatan ini sebagaimana dimaksud dalam Pasal 19 Peraturan Pemerintah No. 9 Tahun 1975, dan untuk itu Penggugat mohon kepada Bapak Ketua Mahkamah Syar'iyah Bireuen kiranya berkenan menerima dan memeriksa perkara ini;
+Bahwa Penggugat sanggup membayar biaya yang timbul dalam perkara ini;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 1. Tidak interaktif (Jika pengguna tidak paham pernyataan dan butuh penjelasan)

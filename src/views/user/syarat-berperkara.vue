@@ -1,13 +1,24 @@
 <template>
+<Nav />
   <div class="wrapper">
-    <Nav />
-    <Sidebar />
-    <div class="content-wrapper">
+    <div>
       <div class="content-header">
         <div class="content">
           <div class="container">
             <div class="row justify-content-center">
-              <div class="col-md-8">
+              <div class="col-md-12">
+                <div style="text-align: center; margin-top: 20%">
+                  <h2>Syarat Berperkara di PA Tulungagung</h2>
+                  <br />
+                  <h3>
+                    <a
+                      href=""
+                      id="change_address"
+                      @click.stop.prevent="toggleFab()"
+                      >Klik di sini untuk memulai</a
+                    >
+                  </h3>
+                </div>
                 <!-- chat box -->
                 <div class="fabs">
                   <div
@@ -16,6 +27,7 @@
                       direct-chat direct-chat-primary
                       chat
                     "
+                    style="display: none"
                   >
                     <div class="chat_header">
                       <div class="chat_option">
@@ -24,14 +36,24 @@
                             src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z"
                           />
                         </div>
-                        <span id="chat_head">Jane Doe</span> <br />
-                        <span class="agent">Agent</span>
+                        <span id="chat_head">ANYA</span> <br />
+                        <span class="agent">Pengadilan Agama Tulungagung</span>
                         <span class="online">(Online)</span>
                         <span
                           id="chat_fullscreen_loader"
                           class="chat_fullscreen_loader"
                           ><i class="fullscreen zmdi zmdi-window-maximize"></i
                         ></span>
+                        <button
+                          type="button"
+                          style="margin-top: -15px; margin-right: 20px"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                          @click.stop.prevent="toggleFab()"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
                       </div>
                     </div>
                     <div class="chat_body" id="msgs" style="height: 300px">
@@ -110,9 +132,6 @@
                       ></textarea>
                     </div>
                   </div>
-                  <a id="prime" class="fab" @click.stop.prevent="toggleFab()"
-                    ><i class="prime zmdi zmdi-comment-outline"></i
-                  ></a>
                 </div>
                 <!-- end chat box -->
               </div>
@@ -121,7 +140,6 @@
         </div>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
@@ -129,11 +147,8 @@
 import jQuery from "jquery";
 const $ = jQuery;
 window.$ = $;
-import { useRouter } from "vue-router";
 import striptags from "striptags";
-import Nav from "./partials/Nav.vue";
-import Sidebar from "./partials/Sidebar.vue";
-import Footer from "./partials/Footer.vue";
+import Nav from './partials/Nav.vue';
 
 export default {
   beforeCreate: function () {
@@ -141,15 +156,10 @@ export default {
   },
   components: {
     Nav,
-    Sidebar,
-    Footer,
   },
   data() {
     return {
       staffData: "",
-      questions: ['siapakah namamu?', 'Di mana kamu tinggal?'],
-      currentQuestion: 0,
-      answers: [],
       runtimeTranscription_: "",
       transcription_: [],
       lang_: "id-ID",
@@ -176,6 +186,12 @@ export default {
       $(".chat").toggleClass("is-visible");
       $(".fab").toggleClass("is-visible");
       this.hideChat(0);
+
+      if ($(".is-visible").is(":hidden")) {
+        $(".chat").show();
+      } else {
+        $(".chat").hide();
+      }
 
       // if user open the chat
       this.countOpenFab = this.countOpenFab + 1;
@@ -230,7 +246,7 @@ export default {
     },
     microphoneClick() {
       if (this.placeholderValue === "Send a voice!") {
-        this.synth.cancel();
+        this.synth.cancel(); // stop current bot speaking.
         this.isClicked = true;
         this.placeholderValue = "Listening... Please wait!";
         $("#fab_send").css({ "background-color": "#42A5F5" });
@@ -257,7 +273,19 @@ export default {
       this.synth.onvoiceschanged = () => {
         this.voiceList = this.synth.getVoices();
       };
-      let transcriptGreeting = this.questions[this.currentQuestion];
+      let transcriptGreeting = `Selamat datang di Pengadilan Agama Tulungagung. 
+      Terima kasih telah menghubungi kami. Di sini kami bisa memberi informasi kepada Anda beberapa hal: <br>
+      - Syarat pengajuan cerai talak. <br>
+      - Syarat pengajuan cerai gugat. <br>
+      - Syarat gugatan harta bersama. <br>
+      - Syarat gugatan waris. <br>
+      - Syarat dispensasi kawin. <br>
+      - Syarat perwalian. <br>
+      - Syarat izin poligami. <br>
+      - Syarat penetapan ahli waris. <br>
+      - Syarat isbat nikah.  <br>
+      - Syarat pengangkatan anak. <br>
+      Silahkan tentukan pilihan Anda!`;
       this.botSpeech.text = striptags(transcriptGreeting);
       let voices = window.speechSynthesis.getVoices();
       this.botSpeech.voice = voices[11];
@@ -315,32 +343,188 @@ export default {
       this.currentRec = recognition;
 
       // end of transcription
-      recognition.addEventListener("end", () => {
+      this.currentRec.addEventListener("end", () => {
         this.transcription_ = [];
         this.transcription_.push(this.runtimeTranscription_);
 
-        if (this.transcription_[0] !== "") {
-          this.answers.push(this.transcription_[0]);
-          this.currentQuestion = this.currentQuestion + 1;
-          this.showUserVoiceAsText(this.transcription_[0]);
+        //this.userVoice = this.transcription_[0];
 
-          if(this.questions[this.currentQuestion] === undefined) {
-            let transcript = "Terima kasih atas waktunya!";
-            this.showBotVoiceQuestion(transcript);
-            this.showBotVoiceAsText(transcript);
-            this.saveDataToDB();
-          } else {
-            this.showBotVoiceQuestion(this.questions[this.currentQuestion]);
-            this.showBotVoiceAsText(this.questions[this.currentQuestion]);
+        if (this.transcription_[0] !== "") {
+          // open link in the same tab and in the same browser
+          // window.location.replace('http://localhost/elven/pa-tulungagung/?s=' + this.transcription_[0]);
+
+          // show voice reply
+          this.voiceList = this.synth.getVoices();
+          this.synth.onvoiceschanged = () => {
+            this.voiceList = this.synth.getVoices();
+          };
+          this.botSpeech.text = `${this.transcription_[0]}`;
+          this.botSpeech.voice = this.voiceList[11];
+
+          if (
+            this.transcription_[0] !== "syarat pengajuan cerai gugat" &&
+            this.transcription_[0] !== "syarat pengajuan cerai talak" &&
+            this.transcription_[0] !== "syarat gugatan harta bersama" &&
+            this.transcription_[0] !== "syarat gugatan waris" &&
+            this.transcription_[0] !== "syarat dispensasi kawin" &&
+            this.transcription_[0] !== "syarat perwalian" &&
+            this.transcription_[0] !== "syarat izin poligami" &&
+            this.transcription_[0] !== "syarat penetapan ahli waris" &&
+            this.transcription_[0] !== "syarat isbat nikah" &&
+            this.transcription_[0] !== "syarat pengangkatan anak"
+          ) {
+            this.placeholderValue = "";
+            $("#fab_send").css({ "background-color": "white" });
+            $(".icon-to-change").css({ color: "#42A5F5" });
+
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(
+              "Maaf, pilihan Anda tidak tersedia, silahkan pilih opsi lain!"
+            );
+
+            // show bot voice
+            this.synth.cancel();
+            this.botSpeech.text =
+              "Maaf, pilihan Anda tidak tersedia, silahkan pilih opsi lain!";
+            this.synth.speak(this.botSpeech);
+            this.botSpeech.onend = function () {
+              self.microphoneClick();
+            };
           }
-          
-        } 
-        else if (this.transcription_[0] === "") {
+
+          if (this.transcription_[0] === "syarat pengajuan cerai talak") {
+            let transcript1 = `Berikut syarat-syarat pengajuan cerai talak: <br>
+              1. Surat permohonan rangkap 4. <br>
+              2. Fotokopi KTP asli pemohon. <br>
+              3. Fotocopy buku nikah. <br>
+              4. Membayar panjar biaya perkara.`;
+
+            this.showBotVoice(transcript1);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript1);
+          } else if (
+            this.transcription_[0] === "syarat pengajuan cerai gugat"
+          ) {
+            let transcript2 = `Berikut syarat-syarat pengajuan cerai gugat: <br>
+              1. Surat gugatan rangkap 4. <br>
+              2. Fotocopy KTP asli penggugat. <br>
+              3. Fotocopy buku nikah. <br>
+              4. Membayar panjar biaya perkara. `;
+
+            this.showBotVoice(transcript2);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript2);
+          } else if (
+            this.transcription_[0] === "syarat gugatan harta bersama"
+          ) {
+            let transcript3 = `Berikut syarat-syarat gugatan harta bersama: <br>
+              1. Surat gugatan rangkap sesuai dengan jumlah para pihak. <br>
+              2. Fotocopy KTP surat cerai. <br>
+              3. Fotocopy KTP penggugat. <br>
+              4. Membayar panjar biaya perkara. `;
+
+            this.showBotVoice(transcript3);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript3);
+          } else if (this.transcription_[0] === "syarat gugatan waris") {
+            let transcript4 = `Berikut syarat-syarat gugatan waris: <br>
+            1. Surat gugatan rangkap sesuai dengan jumlah para pihak. <br>
+            2. Membayar panjar biaya perkara.`;
+
+            this.showBotVoice(transcript4);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript4);
+          } else if (this.transcription_[0] === "syarat dispensasi kawin") {
+            let transcript5 = `Berikut syarat-syarat dispensasi kawin: <br>
+            1. N-P/Penolakan KUA. <br>
+            2. KTP pemohon. <br>
+            3. Fotocopy surat nikah pemohon. <br>
+            4. KTP calon suami dan istri. <br> 
+            5. Fotocopy kartu keluarga. <br> 
+            6. Fotocopy akta kelahiran suami dan istri. <br>
+            7. Fotocopy ijazah calon suami dan istri.`;
+
+            this.showBotVoice(transcript5);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript5);
+          } else if (this.transcription_[0] === "syarat perwalian") {
+            let transcript6 = `Berikut syarat-syarat perwalian: <br>
+            1. Fotocopy surat nikah. <br> 
+            2. Fotocopy akta kelahiran anak. <br>
+            3. Fotocopy surat kematian ibu / bapak. <br> 
+            4. KTP asli dan fotocopy pemohon. `;
+
+            this.showBotVoice(transcript6);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript6);
+          } else if (this.transcription_[0] === "syarat izin poligami") {
+            let transcript7 = `Berikut syarat-syarat izin poligami: <br>
+            1. Surat permohonan rangkap 4. <br>
+            2. Fotocopy KTP pemohon dan calon istri beserta istri pertama. <br>
+            3. Fotocopy buku nikah pemohon. <br> 
+            4. Fotocopy kartu keluarga pemohon. <br> 
+            5. Surat keterangan status calon istri dari desa, bila belum pernah menikah (apabila pernah terjadi perceraian, melampirkan fotocopy akta cerai dan apabila meninggal dunia, melampirkan surat kematian). <br>
+            6. Surat pernyataan berlaku adil. <br> 
+            7. Surat keterangan penghasilan diketahui desa / instansi. <br>
+            8. Surat ijin atasan bila PNS. <br>
+            9. Surat pernyataan tidak keberatan dimadu dari calon istri. <br>
+            10. Surat pernyataan tidak keberatan dimadu dari istri pertama. <br>
+            11. Surat keterangan pemisahan harta kekayaan. <br> 
+            12. Membayar panjar biaya perkara. `;
+
+            this.showBotVoice(transcript7);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript7);
+          } else if (this.transcription_[0] === "syarat penetapan ahli waris") {
+            let transcript8 = `Berikut syarat-syarat penetapan ahli waris: <br>
+            1. Surat permohonan rangkap 4. <br>
+            2. Fotocopy KTP pemohon / para pemohon. <br>
+            3. Fotocopy kartu keluarga pewaris. <br>
+            4. Fotocopy kartu keluarga orang tua pewaris. <br>
+            5. Fotocopy surat nikah pewaris. <br> 
+            6. Fotocopy surat nikah orang tua pewaris. <br>
+            7. Fotocopy surat kematian orang tua pewaris. <br>
+            8. Surat keterangan ahli waris dari desa yang diketahui camat. <br>
+            9. Membayar panjar biaya perkara. `;
+
+            this.showBotVoice(transcript8);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript8);
+          } else if (this.transcription_[0] === "syarat isbat nikah") {
+            let transcript9 = `Berikut syarat-syarat isbat nikah: <br>
+            1. Surat permohonan rangkap 4. <br> 
+            2. Fotocopy KTP suami istri. <br>
+            3. Fotocopy kartu keluarga. <br>
+            4. Surat keterangan dari desa tentang status suami dan istri waktu menikah. <br>
+            5. Surat keterangan dari KUA (asli) tentang tidak tercatatnya pernikahan pada registrasi KUA. <br>
+            6. Membayar panjar biaya perkara. `;
+
+            this.showBotVoice(transcript9);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript9);
+          } else if (this.transcription_[0] === "syarat pengangkatan anak") {
+            let transcript10 = `Berikut syarat-syarat pengangkatan anak: <br>
+            1. Surat nikah orang tua anak. <br>
+            2. Akta kelahiran / surat kelahiran anak. <br>
+            3. Surat nikah calon orang tua angkat. <br>
+            4. KTP suami-istri calon orang tua angkat. <br>
+            5. Surat keterangan sehat calon orang tua angkat. <br> 
+            6. SKCK calon orang tua angkat. <br>
+            7. KTP orang tua anak. <br>
+            8. Suket penghasilan orang tua angkat. <br>
+            9. Super penyerahan anak. <br> 
+            10. Suket hubungan keluarga / orang lain. `;
+
+            this.showBotVoice(transcript10);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript10);
+          }
+        } else if (this.transcription_[0] === "") {
           this.synth.cancel();
           this.botSpeech.text =
             "Maaf, kami tidak mendengar suara Anda. Silahkan coba lagi!";
           this.synth.speak(this.botSpeech);
-          recognition.stop();
+          this.currentRec.stop();
           this.botSpeech.onend = function () {
             self.synth.cancel();
           };
@@ -350,13 +534,12 @@ export default {
         }
 
         this.runtimeTranscription_ = "";
-        recognition.stop();
+        this.currentRec.stop();
       });
-      recognition.start();
+      this.currentRec.start();
     },
-    showBotVoiceQuestion(transcript) {
-      console.log(this.answers);
-      this.synth.cancel(); // stop current bot speaking (prevent chrome sometimes voice is not found)
+    showBotVoice(transcript) {
+      this.synth.cancel(); // prevent chrome sometimes voice is not found
       this.voiceTimeout = setTimeout(this.voiceTimer, 100000);
       this.botSpeech.text = striptags(transcript);
       this.synth.speak(this.botSpeech);
@@ -398,13 +581,16 @@ export default {
       $(`.chat-default-${this.indexChatBot + 1}`).append(
         `<div class="direct-chat-text bot-voice">${transcript}</div>`
       );
+      $(".chat_body").animate(
+        {
+          scrollTop: $(`.chat-default-${this.indexChatBot + 1}`).position().top,
+        },
+        1000
+      );
     },
-    saveDataToDB() {
-
-    }
   },
   created() {
-    //
+    //this.checkAuth();
   },
   mounted() {},
 };
@@ -591,7 +777,7 @@ ul li {
 
 .chat {
   position: fixed;
-  right: 40%;
+  right: 50%;
   top: 15%;
   font-size: 12px;
   line-height: 22px;
@@ -746,7 +932,7 @@ a {
 .chat_field.chat_message {
   height: 30px;
   margin-left: 15px;
-  float:left;
+  float: left;
   resize: none;
   font-size: 13px;
   font-weight: 400;
