@@ -1,5 +1,5 @@
 <template>
-<Nav />
+  <Nav />
   <div class="wrapper">
     <div>
       <div class="content-header">
@@ -116,6 +116,7 @@
                         </div></span
                       >
                     </div>
+                    <span style="display:none" class="waiting" title="Petunjuk sedang dibacakan, mohon tunggu terlebih dahulu sampai selesai!"></span>
                     <div class="fab_field">
                       <a
                         id="fab_send"
@@ -148,7 +149,7 @@ import jQuery from "jquery";
 const $ = jQuery;
 window.$ = $;
 import striptags from "striptags";
-import Nav from './partials/Nav.vue';
+import Nav from "./partials/Nav.vue";
 
 export default {
   beforeCreate: function () {
@@ -251,13 +252,25 @@ export default {
         this.placeholderValue = "Listening... Please wait!";
         $("#fab_send").css({ "background-color": "#42A5F5" });
         $(".icon-to-change").css({ color: "white" });
-        this.startSpeechToTxt();
-      } else {
-        $("#fab_send").css({ "background-color": "white" });
-        $(".icon-to-change").css({ color: "#42A5F5" });
-        this.placeholderValue = "Send a voice!";
-        this.synth.cancel();
-        this.currentRec.stop();
+        this.recognizeVoice();
+      } 
+      else {
+        if(this.synth.speaking) { // if bot still speaking
+          // required for record voice automatically (with if else)
+          console.log('still speaking');
+          $(".waiting").show();
+          $('.waiting').tooltip("show");
+          setInterval(function() {
+            $('.waiting').tooltip("hide").fadeOut(9000).delay(1000);
+          }, 1500);
+        } else {
+          // required for record voice manually (without if else)
+          $("#fab_send").css({ "background-color": "white" });
+          $(".icon-to-change").css({ color: "#42A5F5" });
+          this.placeholderValue = "Send a voice!";
+          this.synth.cancel(); // stop current bot speaking.
+          this.currentRec.stop();
+        }
       }
     },
     voiceTimer() {
@@ -320,11 +333,7 @@ export default {
         };
       }
     },
-    startSpeechToTxt() {
-      console.log("listening...");
-      var self = this;
-
-      // initialisation of voicereco
+    recognizeVoice() {
       window.SpeechRecognition =
         window.SpeechRecognition || window.webkitSpeechRecognition;
       const recognition = new window.SpeechRecognition();
@@ -341,6 +350,12 @@ export default {
       });
 
       this.currentRec = recognition;
+
+      this.startSpeechToTxt();
+    },
+    startSpeechToTxt() {
+      console.log("listening...");
+      var self = this;
 
       // end of transcription
       this.currentRec.addEventListener("end", () => {
@@ -373,22 +388,33 @@ export default {
             this.transcription_[0] !== "syarat isbat nikah" &&
             this.transcription_[0] !== "syarat pengangkatan anak"
           ) {
-            this.placeholderValue = "";
-            $("#fab_send").css({ "background-color": "white" });
-            $(".icon-to-change").css({ color: "#42A5F5" });
+            // required for record voice manually
+            // this.placeholderValue = "";
+            // $("#fab_send").css({ "background-color": "white" });
+            // $(".icon-to-change").css({ color: "#42A5F5" });
 
-            this.showUserVoiceAsText(this.transcription_[0]);
-            this.showBotVoiceAsText(
-              "Maaf, pilihan Anda tidak tersedia, silahkan pilih opsi lain!"
-            );
+            // this.showUserVoiceAsText(this.transcription_[0]);
+            // this.showBotVoiceAsText(
+            //   "Maaf, pilihan Anda tidak tersedia, silahkan pilih opsi lain!"
+            // );
 
-            // show bot voice
+            // // show bot voice
+            // this.synth.cancel();
+            // this.botSpeech.text =
+            //   "Maaf, pilihan Anda tidak tersedia, silahkan pilih opsi lain!";
+            // this.synth.speak(this.botSpeech);
+            // this.botSpeech.onend = function () {
+            //   self.microphoneClick();
+            // };
+
+            // required for record voice automatically
             this.synth.cancel();
             this.botSpeech.text =
               "Maaf, pilihan Anda tidak tersedia, silahkan pilih opsi lain!";
             this.synth.speak(this.botSpeech);
+
             this.botSpeech.onend = function () {
-              self.microphoneClick();
+              self.recognizeVoice();
             };
           }
 
@@ -519,18 +545,28 @@ export default {
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript10);
           }
-        } else if (this.transcription_[0] === "") {
+        } else if (
+          this.transcription_[0] === "" &&
+          this.placeholderValue === "Listening... Please wait!"
+        ) {
           this.synth.cancel();
           this.botSpeech.text =
             "Maaf, kami tidak mendengar suara Anda. Silahkan coba lagi!";
           this.synth.speak(this.botSpeech);
-          this.currentRec.stop();
+
+          // required for record voice manually
+          // this.currentRec.stop();
+          // this.botSpeech.onend = function () {
+          //   self.synth.cancel();
+          // };
+          // this.placeholderValue = "Send a voice!";
+          // $("#fab_send").css({ "background-color": "white" });
+          // $(".icon-to-change").css({ color: "#42A5F5" });
+
+          // required for record voice automatically
           this.botSpeech.onend = function () {
-            self.synth.cancel();
+            self.recognizeVoice();
           };
-          this.placeholderValue = "Send a voice!";
-          $("#fab_send").css({ "background-color": "white" });
-          $(".icon-to-change").css({ color: "#42A5F5" });
         }
 
         this.runtimeTranscription_ = "";
@@ -543,16 +579,26 @@ export default {
       this.voiceTimeout = setTimeout(this.voiceTimer, 100000);
       this.botSpeech.text = striptags(transcript);
       this.synth.speak(this.botSpeech);
-      this.currentRec.stop();
+      //this.currentRec.stop(); // required for record voice manually
       if (this.botSpeech.onend) {
         this.botSpeech.onend = function () {
           clearTimeout(this.voiceTimeout);
         };
       }
 
-      this.placeholderValue = "Send a voice!";
-      $("#fab_send").css({ "background-color": "white" });
-      $(".icon-to-change").css({ color: "#42A5F5" });
+      // required for record voice automatically
+      let lastVoice = this.voiceList[this.voiceList.length - 1];
+      if (lastVoice) {
+        var self = this;
+        this.botSpeech.onend = function () {
+          self.recognizeVoice();
+        };
+      }
+
+      // required for record voice manually
+      // this.placeholderValue = "Send a voice!";
+      // $("#fab_send").css({ "background-color": "white" });
+      // $(".icon-to-change").css({ color: "#42A5F5" });
     },
     showUserVoiceAsText(transcript) {
       this.indexChatUser = this.indexChatUser + 1;
@@ -589,10 +635,13 @@ export default {
       );
     },
   },
+  watch: {},
   created() {
     //this.checkAuth();
   },
-  mounted() {},
+  mounted() {
+    //
+  },
 };
 </script>
 

@@ -116,6 +116,7 @@
                         </div></span
                       >
                     </div>
+                    <span style="display:none" class="waiting" title="Petunjuk sedang dibacakan, mohon tunggu terlebih dahulu sampai selesai!"></span>
                     <div class="fab_field">
                       <a
                         id="fab_send"
@@ -175,7 +176,7 @@ export default {
         "Sebutkan nomor telepon Anda!",
         "Sebutkan e-mail Anda!",
 
-        // Identitas tergugat
+        // Identitas tergugat (start from index 11)
         "Sebutkan nama pasangan Anda!",
         "Sebutkan umur pasangan Anda! Cukup sebutkan angkanya!",
         "Apa agama pasangan Anda",
@@ -183,30 +184,21 @@ export default {
         "Apa pekerjaan pasangan Anda?",
         "Di mana tempat tinggal pasangan Anda? Jawab dengan jawaban lengkap disertai RT/RW, Kelurahan, dan Kecamatan!",
         
-        // Identitas Pernikahan
+        // Identitas Pernikahan (start from index 17)
+        "Sebutkan tanggal menikah Anda!",
         "Di mana KUA tempat menikah Anda?",
         "Sebutkan nomor kutipan akta nikah Anda!",
-        "Sebutkan tanggal menikah Anda!",
         "Sebutkan tanggal kutipan akta nikah Anda!",
         "Setelah menikah, di manakah Anda dan Pasangan Anda hidup bersama dan berapa lama? Jika Anda tinggal bersama pasangan, jawab dengan format:<br> <b>tinggal bersama pasangan di &lt;nama tempat tinggal&gt; selama &lt;lama tinggal&gt;</b>.<br> Namun jika Anda tidak tinggal bersama pasangan, jawab dengan format: <br><b>tinggal di &lt;nama tempat tinggal&gt; sedangkan pasangan tinggal di &lt;nama tempat tinggal&gt; selama &lt;lama tinggal&gt; </b><br>",
         "Apakah Selama Pernikahan Anda dan pasangan Anda dikaruniai anak? Jika sudah dikaruniai anak, jawab dengan format: <br> <b>sudah dikaruniai anak sebanyak &lt;jumlah anak&gt;</b>.<br> Jika belum dikaruniai anak, jawab hanya dengan format: <br><b>belum dikaruniai anak</b>",
-
-        // Start form index 24 (if counting from 1) khusus untuk penggugat yang memiliki anak
-        "Sebutkan nama anak Anda!",
-        "Sebutkan jenis kelamin anak Anda!",
-        "Sebutkan Tempat / Tanggal Lahir anak Anda!",
-        "Apa agama anak Anda?",
-        "Apa status pernikahan anak Anda?",
-        "Apa pendidikan anak Anda?",
-        "Dengan siapa anak Anda tinggal?",
-        // End untuk penggugat yang memiliki anak
-
+        
+        // start from index 23
         "Sejak kapan rumah tangga Anda tidak harmonis?",
         "Apa penyebab rumah tangga Anda tidak harmonis?",
         "Kapan puncak masalah dari rumah tangga Anda yang tidak harmonis?",
         "Apakah pihak keluarga telah mendamaikan Penggugat dengan Tergugat? Jawab dengan format <b>sudah</b> atau <b>belum</b>.",
 
-        // Start form index 35 (if counting from 1) khusus untuk penggugat laki-laki
+        // Start form index 27 khusus untuk penggugat laki-laki
         "Berapa Nafkah Iddah (nafkah Selama masa tunggu ) yang ingin diberikan?",
         "Berapa biaya Mut'ah (tali asih / Kenang-kenangan / Pemberian Mantan Suami kepada Mantan Istri) yang ingin diberikan?",
         // End jika penggugat laki-laki
@@ -227,7 +219,6 @@ export default {
       indexChatBot: 0,
       countOpenFab: 0,
       voiceTimeout: 0,
-      userHasKids: false,
       userIsWoman: false,
     };
   },
@@ -306,13 +297,24 @@ export default {
         this.placeholderValue = "Listening... Please wait!";
         $("#fab_send").css({ "background-color": "#42A5F5" });
         $(".icon-to-change").css({ color: "white" });
-        this.startSpeechToTxt();
+        this.recognizeVoice();
       } else {
-        $("#fab_send").css({ "background-color": "white" });
-        $(".icon-to-change").css({ color: "#42A5F5" });
-        this.placeholderValue = "Send a voice!";
-        this.synth.cancel();
-        this.currentRec.stop();
+        if(this.synth.speaking) { // if bot still speaking
+          // required for record voice automatically (with if else)
+          console.log('still speaking');
+          $(".waiting").show();
+          $('.waiting').tooltip("show");
+          setInterval(function() {
+            $('.waiting').tooltip("hide").fadeOut(9000).delay(1000);
+          }, 1500);
+        } else {
+          // required for record voice manually (without if else)
+          $("#fab_send").css({ "background-color": "white" });
+          $(".icon-to-change").css({ color: "#42A5F5" });
+          this.placeholderValue = "Send a voice!";
+          this.synth.cancel(); // stop current bot speaking.
+          this.currentRec.stop();
+        }
       }
     },
     voiceTimer() {
@@ -363,11 +365,7 @@ export default {
         };
       }
     },
-    startSpeechToTxt() {
-      console.log("listening...");
-      var self = this;
-
-      // initialisation of voicereco
+    recognizeVoice() {
       window.SpeechRecognition =
         window.SpeechRecognition || window.webkitSpeechRecognition;
       const recognition = new window.SpeechRecognition();
@@ -385,8 +383,14 @@ export default {
 
       this.currentRec = recognition;
 
+      this.startSpeechToTxt();
+    },
+    startSpeechToTxt() {
+      console.log("listening...");
+      var self = this;
+      
       // end of transcription
-      recognition.addEventListener("end", () => {
+      this.currentRec.addEventListener("end", () => {
         this.transcription_ = [];
         this.transcription_.push(this.runtimeTranscription_);
 
@@ -399,22 +403,9 @@ export default {
             this.currentQuestion === 5 &&
             this.transcription_[0] === "wanita"
           ) {
-            this.questions.length = 33; // Skip all the questions start from index 35 to 36
+            this.questions.length = 26; // Skip all the questions start from index 27 to 28
             this.userIsWoman = true;
           } 
-
-          if (
-            this.currentQuestion === 23 &&
-            this.transcription_[0].includes("belum")
-          ) {
-            this.currentQuestion = this.currentQuestion + 8; // Skip all the questions start from index 23 to 30
-          } else if (
-            this.currentQuestion === 23 &&
-            this.transcription_[0].includes("sudah")
-          ) {
-            this.currentQuestion = 24;
-            this.userHasKids = true;
-          }
 
           // If the questions is end
           if (this.questions[this.currentQuestion] === undefined) {
@@ -423,43 +414,61 @@ export default {
             this.showBotVoiceAsText(transcript);
             this.saveDataToDB();
           } else {
+            // continue questions
             this.showBotVoiceQuestion(this.questions[this.currentQuestion]);
             this.showBotVoiceAsText(this.questions[this.currentQuestion]);
           }
-        } else if (this.transcription_[0] === "") {
+        } else if (this.transcription_[0] === "" && this.placeholderValue === "Listening... Please wait!") {
           this.synth.cancel();
           this.botSpeech.text =
             "Maaf, kami tidak mendengar suara Anda. Silahkan coba lagi!";
           this.synth.speak(this.botSpeech);
-          recognition.stop();
+
+          // required for record voice manually
+          // this.currentRec.stop();
+          // this.botSpeech.onend = function () {
+          //   self.synth.cancel();
+          // };
+          // this.placeholderValue = "Send a voice!";
+          // $("#fab_send").css({ "background-color": "white" });
+          // $(".icon-to-change").css({ color: "#42A5F5" });
+
+          // required for record voice automatically
           this.botSpeech.onend = function () {
-            self.synth.cancel();
+            self.recognizeVoice();
           };
-          this.placeholderValue = "Send a voice!";
-          $("#fab_send").css({ "background-color": "white" });
-          $(".icon-to-change").css({ color: "#42A5F5" });
         }
 
         this.runtimeTranscription_ = "";
-        recognition.stop();
+        this.currentRec.stop();
       });
-      recognition.start();
+      this.currentRec.start();
     },
     showBotVoiceQuestion(transcript) {
       this.synth.cancel(); // stop current bot speaking (prevent chrome sometimes voice is not found)
       this.voiceTimeout = setTimeout(this.voiceTimer, 100000);
       this.botSpeech.text = striptags(transcript);
       this.synth.speak(this.botSpeech);
-      this.currentRec.stop();
+      //this.currentRec.stop(); // required for record voice manually
       if (this.botSpeech.onend) {
         this.botSpeech.onend = function () {
           clearTimeout(this.voiceTimeout);
         };
       }
 
-      this.placeholderValue = "Send a voice!";
-      $("#fab_send").css({ "background-color": "white" });
-      $(".icon-to-change").css({ color: "#42A5F5" });
+      // required for record voice automatically
+      let lastVoice = this.voiceList[this.voiceList.length - 1];
+      if (lastVoice) {
+        var self = this;
+        this.botSpeech.onend = function () {
+          self.recognizeVoice();
+        };
+      }
+
+      // required for record voice manually
+      // this.placeholderValue = "Send a voice!";
+      // $("#fab_send").css({ "background-color": "white" });
+      // $(".icon-to-change").css({ color: "#42A5F5" });
     },
     showUserVoiceAsText(transcript) {
       this.indexChatUser = this.indexChatUser + 1;
@@ -500,7 +509,7 @@ export default {
       <br>
       <br>
       Kepada Yth. <br>
-      Ketua Mahkamah Syar'iyah ${this.answers[0]} <br>
+      Ketua Pengadilan Agama ${this.answers[0]} <br>
       Di ${this.answers[0]}. <br>
       <br>
       Assalamu'alaikum Wr. Wb.<br>
@@ -543,27 +552,21 @@ export default {
       <br>
       `;
 
-      let manProblemsHasKids = `
-      ...
-      2. Menjatuhkan talak satu ba'in shughra Tergugat (${this.answers[11]}) terhadap Penggugat (${this.answers[1]});
-      3. Menetapkan Penggugat sebagai pemegang hak asuh atas anak-anak yang bernama:
-         ...
-         dengan tetap memberikan hak akses kepada Tergugat untuk mengunjungi ketiga anak tersebut;
-      4. Membebankan biaya perkara ini sesuai peraturan yang berlaku;
-      `;
-
-      let manProblemsHasNoKids = `
+      let mainProblems = `
       TENTANG PERMASALAHANNYA <br>
       <br>
       <ol>
-      <li>Bahwa pada tanggal ${this.answers[19]}, Pemohon dan Termohon telah melangsungkan pernikahan yang dicatat oleh Pegawai Pencatat Nikah di ${this.answers[17]}, sebagaimana sesuai dengan Kutipan Akta Nikah Nomor : ${this.answers[20]}, tertanggal 17 September 2007;</li>
+      <li>Bahwa pada tanggal ${this.answers[17]}, Pemohon dan Termohon telah melangsungkan pernikahan yang dicatat oleh Pegawai Pencatat Nikah di ${this.answers[18]}, sebagaimana sesuai dengan Kutipan Akta Nikah Nomor : ${this.answers[19]}, tertanggal ${this.answers[20]};</li>
       <li>Bahwa setelah menikah, Pemohon ${this.answers[21]} dan ${this.answers[22]};</li>
-      <li> - Bahwa sejak ${this.answers[22]} keadaan rumah tangga Pemohon dan Termohon mulai tidak harmonis disebabkan karena ${this.answers[23]}
-         - Bahwa puncak perselisihan dan pertengkaran terjadi pada ${this.answers[24]};
-         - Bahwa pihak keluarga ${this.answers[25]} berusaha mendamaikan, dan Penggugat tetap pada prinsip untuk bercerai karena Tergugat sudah tidak mempunyai i’tikad baik lagi untuk menjalankan kehidupan rumah tangga.</li>
-      <li> Bahwa Termohon yang ditalak wajib menjalani masa iddah sesuai dengan ketentuan syara’, karenanya Pemohon bersedia memberi nafkah kepada Termohon selama masa iddah sejumlah Rp. ${this.answers[26]} serta mut’ah sebagai penghibur bagi Termohon sejumlah Rp. ${this.answers[27]};</li>
-      <li> Bahwa berdasarkan dalil-dalil di atas, telah cukup alasan bagi Pemohon untuk mengajukan Permohonan ini sebagaimana dimaksud dalam Pasal 19 Peraturan Pemerintah No. 9 Tahun 1975, dan untuk itu Pemohon memohon kepada Ketua Mahkamah Syar'iyah ${this.answers[0]} kiranya berkenan menerima dan memeriksa perkara ini;</li>
+      <li> - Bahwa sejak ${this.answers[23]} keadaan rumah tangga Pemohon dan Termohon mulai tidak harmonis disebabkan karena ${this.answers[24]}<br>
+         - Bahwa puncak perselisihan dan pertengkaran terjadi pada ${this.answers[25]};<br>
+         - Bahwa pihak keluarga ${this.answers[26]} berusaha mendamaikan, dan Penggugat tetap pada prinsip untuk bercerai karena Tergugat sudah tidak mempunyai i’tikad baik lagi untuk menjalankan kehidupan rumah tangga.</li><br>
+      <li> Bahwa berdasarkan dalil-dalil di atas, telah cukup alasan bagi Pemohon untuk mengajukan Permohonan ini sebagaimana dimaksud dalam Pasal 19 Peraturan Pemerintah No. 9 Tahun 1975, dan untuk itu Pemohon memohon kepada Ketua Pengadilan Agama ${this.answers[0]} kiranya berkenan menerima dan memeriksa perkara ini;</li>
       <li> Bahwa Pemohon sanggup membayar biaya yang timbul dalam perkara ini;</li>
+      `;
+
+      let manProblems = `
+      <li> Bahwa Termohon yang ditalak wajib menjalani masa iddah sesuai dengan ketentuan syara’, karenanya Pemohon bersedia memberi nafkah kepada Termohon selama masa iddah sejumlah Rp. ${this.answers[27]} serta mut’ah sebagai penghibur bagi Termohon sejumlah Rp. ${this.answers[28]};</li>
       </ol>
       <br>
       Berdasarkan alasan-alasan tersebut di atas, Penggugat memohon kepada Majelis Hakim untuk menjatuhkan putusan yang amarnya berbunyi sebagai berikut:
@@ -591,51 +594,28 @@ export default {
 
       let narration = '';
 
-      // Pria punya anak.
-      if(this.userIsWoman === false && this.userHasKids === true) {
+      // Pria 
+      if(this.userIsWoman === false) {
         narration = `
         ${opening}
         ${penggugat}
         ${lawsuitAgainstWife}
         ${tergugat}
-        
-        ${manProblemsHasKids}
+        ${mainProblems}
+        ${manProblems}
         ${closing}
         `
       }
 
-      // Pria tidak punya anak.
-      if(this.userIsWoman === false && this.userHasKids === false) {
-        narration = `
-        ${opening}
-        ${penggugat}
-        ${lawsuitAgainstWife}
-        ${tergugat}
-        ${manProblemsHasNoKids}
-        ${closing}
-        `
-      }
-
-      // Wanita punya anak
-      if(this.userIsWoman === true && this.userHasKids === true) {
+      // Wanita
+      if(this.userIsWoman === true) {
         narration = `
         ${opening}
         ${penggugat}
         ${lawsuitAgainstHusband}
         ${tergugat}
-        
-        ${closing}
-        `
-      }
-
-      // Wanita tidak punya anak
-      if(this.userIsWoman === true && this.userHasKids === false) {
-        narration = `
-        ${opening}
-        ${penggugat}
-        ${lawsuitAgainstHusband}
-        ${tergugat}
-        
+        ${mainProblems}
+        </ol>
         ${closing}
         `
       }
