@@ -324,6 +324,7 @@ export default {
       this.voiceTimeout = setTimeout(this.voiceTimer, 10000);
     },
     greeting() {
+      console.log('greeting');
       this.synth.cancel(); // prevent chrome sometimes voice is not found
       this.voiceTimeout = setTimeout(this.voiceTimer, 10000);
       this.voiceList = this.synth.getVoices();
@@ -497,6 +498,9 @@ export default {
       $(`.chat-default-${this.indexChatBot + 1}`).append(
         `<div class="direct-chat-text bot-voice">${transcript}</div>`
       );
+
+      var div = $(".chat_body");
+      div.scrollTop(div.prop('scrollHeight'));
     },
     saveDataToDB() {
       let date = new Date().toLocaleDateString("en-us", { day: "numeric" });
@@ -627,7 +631,9 @@ export default {
   created() {
     //
   },
-  mounted() {},
+  mounted() {
+    this.toggleFab();
+  },
 };
 </script>
 

@@ -627,12 +627,9 @@ export default {
       $(`.chat-default-${this.indexChatBot + 1}`).append(
         `<div class="direct-chat-text bot-voice">${transcript}</div>`
       );
-      $(".chat_body").animate(
-        {
-          scrollTop: $(`.chat-default-${this.indexChatBot + 1}`).position().top,
-        },
-        1000
-      );
+      
+      var div = $(".chat_body");
+      div.scrollTop(div.prop('scrollHeight'));
     },
   },
   watch: {},
