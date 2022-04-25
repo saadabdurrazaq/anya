@@ -13,7 +13,8 @@
                   <h3>
                     <a
                       href=""
-                      id="change_address"
+                      id="okBtn"
+                      ref="okBtn"
                       @click.stop.prevent="toggleFab()"
                       >Klik di sini untuk memulai</a
                     >
@@ -116,7 +117,11 @@
                         </div></span
                       >
                     </div>
-                    <span style="display:none" class="waiting" title="Petunjuk sedang dibacakan, mohon tunggu terlebih dahulu sampai selesai!"></span>
+                    <span
+                      style="display: none"
+                      class="waiting"
+                      title="Petunjuk sedang dibacakan, mohon tunggu terlebih dahulu sampai selesai!"
+                    ></span>
                     <div class="fab_field">
                       <a
                         id="fab_send"
@@ -163,7 +168,7 @@ export default {
       staffData: "",
       questions: [
         "Di Pengadilan Agama manakah perkara ini akan didaftarkan? Jawab dengan format: <br> &lt;nama kota&gt;",
-        
+
         // identitas tergugat
         "Siapakah nama Anda?",
         "Sebutkan NIK Anda!",
@@ -183,7 +188,7 @@ export default {
         "Apa pendidikan pasangan Anda? SD, SMP, SMA, S1, S2, S3, atau tidak sekolah?",
         "Apa pekerjaan pasangan Anda?",
         "Di mana tempat tinggal pasangan Anda? Jawab dengan jawaban lengkap disertai RT/RW, Kelurahan, dan Kecamatan!",
-        
+
         // Identitas Pernikahan (start from index 17)
         "Sebutkan tanggal menikah Anda!",
         "Di mana KUA tempat menikah Anda?",
@@ -191,7 +196,7 @@ export default {
         "Sebutkan tanggal kutipan akta nikah Anda!",
         "Setelah menikah, di manakah Anda dan Pasangan Anda hidup bersama dan berapa lama? Jika Anda tinggal bersama pasangan, jawab dengan format:<br> <b>tinggal bersama pasangan di &lt;nama tempat tinggal&gt; selama &lt;lama tinggal&gt;</b>.<br> Namun jika Anda tidak tinggal bersama pasangan, jawab dengan format: <br><b>tinggal di &lt;nama tempat tinggal&gt; sedangkan pasangan tinggal di &lt;nama tempat tinggal&gt; selama &lt;lama tinggal&gt; </b><br>",
         "Apakah Selama Pernikahan Anda dan pasangan Anda dikaruniai anak? Jika sudah dikaruniai anak, jawab dengan format: <br> <b>sudah dikaruniai anak sebanyak &lt;jumlah anak&gt;</b>.<br> Jika belum dikaruniai anak, jawab hanya dengan format: <br><b>belum dikaruniai anak</b>",
-        
+
         // start from index 23
         "Sejak kapan rumah tangga Anda tidak harmonis?",
         "Apa penyebab rumah tangga Anda tidak harmonis?",
@@ -243,7 +248,14 @@ export default {
       this.countOpenFab = this.countOpenFab + 1;
       if ($(".is-visible").is(":hidden") && this.countOpenFab === 1) {
         // show greeting only at the first time
-        this.greeting();
+        let transcriptGreeting = `Selamat datang di halaman perceraian. Terima kasih telah menghubungi kami. <br>
+        <ul>
+           <li>Untuk melanjutkan perkara perceraian, ucapkan <b>perceraian</b>.</li>
+           <li>Untuk mengakses halaman home, ucapkan <b>home</b>.</li>
+           <li>Untuk mengakses halaman syarat-syarat berperkara, ucapkan <b>syarat-syarat berperkara</b>.</li>
+        </ul>
+        Silahkan tentukan pilihan Anda!`;
+        this.greeting(transcriptGreeting);
       } else {
         // if user close the chat, stop window.speechSynthesis(synth.cancel()) and also stop SpeechRecognition()(const recognition)
         this.synth.cancel();
@@ -299,13 +311,14 @@ export default {
         $(".icon-to-change").css({ color: "white" });
         this.recognizeVoice();
       } else {
-        if(this.synth.speaking) { // if bot still speaking
+        if (this.synth.speaking) {
+          // if bot still speaking
           // required for record voice automatically (with if else)
-          console.log('still speaking');
+          console.log("still speaking");
           $(".waiting").show();
-          $('.waiting').tooltip("show");
-          setInterval(function() {
-            $('.waiting').tooltip("hide").fadeOut(9000).delay(1000);
+          $(".waiting").tooltip("show");
+          setInterval(function () {
+            $(".waiting").tooltip("hide").fadeOut(9000).delay(1000);
           }, 1500);
         } else {
           // required for record voice manually (without if else)
@@ -323,16 +336,16 @@ export default {
       this.synth.resume();
       this.voiceTimeout = setTimeout(this.voiceTimer, 10000);
     },
-    greeting() {
-      console.log('greeting');
+    greeting(words) {
+      console.log("greeting");
       this.synth.cancel(); // prevent chrome sometimes voice is not found
       this.voiceTimeout = setTimeout(this.voiceTimer, 10000);
       this.voiceList = this.synth.getVoices();
       this.synth.onvoiceschanged = () => {
         this.voiceList = this.synth.getVoices();
       };
-      let transcriptGreeting = this.questions[this.currentQuestion];
-      this.botSpeech.text = striptags(transcriptGreeting);
+      //let transcriptGreeting = this.questions[this.currentQuestion];
+      this.botSpeech.text = striptags(words);
       let voices = window.speechSynthesis.getVoices();
       this.botSpeech.voice = voices[11];
       this.botSpeech.lang = "id-ID";
@@ -345,26 +358,18 @@ export default {
       }
 
       // Show greeting in a chatbox
-      $(".greeting").remove();
+      this.indexChatBot = this.indexChatBot + 1;
       $(".chat_body").append(
-        '<div class="direct-chat-msg chat-default" style="width: 80%; margin-left: 5px; text-align: left;"></div>'
+        `<div class="direct-chat-msg chat-default-${
+          this.indexChatBot + 1
+        }" style="width: 80%; margin-left: 5px; text-align: left;"></div>`
       ); // add new element (direct-chat-msg) inside chat_body
-      $(".chat-default").append(
+      $(`.chat-default-${this.indexChatBot + 1}`).append(
         "<img class='direct-chat-img' src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z'/>"
       );
-      $(".chat-default").append(
-        '<div class="direct-chat-text greeting"></div>'
+      $(`.chat-default-${this.indexChatBot + 1}`).append(
+        `<div class="direct-chat-text greeting">${words}</div>`
       );
-      let msg = $(".greeting");
-      msg.html(transcriptGreeting).text();
-
-      // if user speak, start proceed its voice
-      if (this.isClicked === true) {
-        var self = this;
-        this.botSpeech.onend = function () {
-          self.startSpeechToTxt();
-        };
-      }
     },
     recognizeVoice() {
       window.SpeechRecognition =
@@ -389,37 +394,62 @@ export default {
     startSpeechToTxt() {
       console.log("listening...");
       var self = this;
-      
+
       // end of transcription
       this.currentRec.addEventListener("end", () => {
         this.transcription_ = [];
         this.transcription_.push(this.runtimeTranscription_);
 
         if (this.transcription_[0] !== "") {
-          this.answers.push(this.transcription_[0]);
-          this.currentQuestion = this.currentQuestion + 1;
-          this.showUserVoiceAsText(this.transcription_[0]);
-
-          if (
-            this.currentQuestion === 5 &&
-            this.transcription_[0] === "wanita"
-          ) {
-            this.questions.length = 26; // Skip all the questions start from index 27 to 28
-            this.userIsWoman = true;
-          } 
-
-          // If the questions is end
-          if (this.questions[this.currentQuestion] === undefined) {
-            let transcript = "Terima kasih atas waktunya!";
-            this.showBotVoiceQuestion(transcript);
-            this.showBotVoiceAsText(transcript);
-            this.saveDataToDB();
-          } else {
-            // continue questions
-            this.showBotVoiceQuestion(this.questions[this.currentQuestion]);
-            this.showBotVoiceAsText(this.questions[this.currentQuestion]);
+          
+          if (this.transcription_[0] === "home") {
+            let transcript2 = `Mohon tunggu sebentar, kami akan mengantarkan Anda ke halaman home.`;
+            this.showBotVoiceQuestion(transcript2);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript2);
+          } else if (this.transcription_[0] === "syarat-syarat berperkara") {
+            let transcript1 = `Mohon tunggu sebentar, kami akan mengantarkan Anda ke halaman syarat-syarat berperkara.`;
+            this.showBotVoiceQuestion(transcript1);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript1);
+          } else if (this.transcription_[0] === "perceraian") {
+            let startQuestion = this.questions[this.currentQuestion];
+            this.showBotVoiceQuestion(startQuestion);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(startQuestion);
           }
-        } else if (this.transcription_[0] === "" && this.placeholderValue === "Listening... Please wait!") {
+
+          ////////////////////////////////////////////////////////////////////////////////////////
+
+          else {
+            this.answers.push(this.transcription_[0]);
+            this.currentQuestion = this.currentQuestion + 1;
+            this.showUserVoiceAsText(this.transcription_[0]);
+
+            if (
+              this.currentQuestion === 5 &&
+              this.transcription_[0] === "wanita"
+            ) {
+              this.questions.length = 26; // Skip all the questions start from index 27 to 28
+              this.userIsWoman = true;
+            }
+
+            // If the questions is end
+            if (this.questions[this.currentQuestion] === undefined) {
+              let transcript = "Terima kasih atas waktunya!";
+              this.showBotVoiceQuestion(transcript);
+              this.showBotVoiceAsText(transcript);
+              this.saveDataToDB();
+            } else {
+              // continue questions
+              this.showBotVoiceQuestion(this.questions[this.currentQuestion]);
+              this.showBotVoiceAsText(this.questions[this.currentQuestion]);
+            }
+          }
+        } else if (
+          this.transcription_[0] === "" &&
+          this.placeholderValue === "Listening... Please wait!"
+        ) {
           this.synth.cancel();
           this.botSpeech.text =
             "Maaf, kami tidak mendengar suara Anda. Silahkan coba lagi!";
@@ -462,7 +492,8 @@ export default {
       if (lastVoice) {
         var self = this;
         this.botSpeech.onend = function () {
-          self.recognizeVoice();
+          //self.recognizeVoice();
+          self.goToTheCertainPage();
         };
       }
 
@@ -500,7 +531,16 @@ export default {
       );
 
       var div = $(".chat_body");
-      div.scrollTop(div.prop('scrollHeight'));
+      div.scrollTop(div.prop("scrollHeight"));
+    },
+    goToTheCertainPage() {
+      if (this.transcription_[0] === "home") {
+        window.location.replace("http://localhost:8082");
+      } else if (this.transcription_[0] === "syarat-syarat berperkara") {
+        window.location.replace("http://localhost:8082/user/syarat-berperkara");
+      } else {
+        this.recognizeVoice();
+      }
     },
     saveDataToDB() {
       let date = new Date().toLocaleDateString("en-us", { day: "numeric" });
@@ -596,10 +636,10 @@ export default {
       ${this.answers[1]}
       `;
 
-      let narration = '';
+      let narration = "";
 
-      // Pria 
-      if(this.userIsWoman === false) {
+      // Pria
+      if (this.userIsWoman === false) {
         narration = `
         ${opening}
         ${penggugat}
@@ -608,11 +648,11 @@ export default {
         ${mainProblems}
         ${manProblems}
         ${closing}
-        `
+        `;
       }
 
       // Wanita
-      if(this.userIsWoman === true) {
+      if (this.userIsWoman === true) {
         narration = `
         ${opening}
         ${penggugat}
@@ -621,11 +661,11 @@ export default {
         ${mainProblems}
         </ol>
         ${closing}
-        `
+        `;
       }
 
       console.log(narration);
-      localStorage.setItem('narration', narration);
+      localStorage.setItem("narration", narration);
     },
   },
   created() {

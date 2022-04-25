@@ -1,5 +1,5 @@
 <template>
-<Nav />
+  <Nav />
   <div class="wrapper">
     <div>
       <div class="content-header">
@@ -11,19 +11,135 @@
                   <h2>Selamat datang di PA Tulungagung</h2>
                   <br />
                   <h3>
-                    <router-link
-                            :to="{ name: 'syarat-berperkara' }"
-                            href="#"
-                            >Syarat Berperkara</router-link
-                          >
+                    <router-link :to="{ name: 'syarat-berperkara' }" href="#"
+                      >Syarat Berperkara</router-link
+                    >
                     |
-                     <router-link
-                            :to="{ name: 'perceraian' }"
-                            href="#"
-                            >Perceraian</router-link
-                          >
+                    <router-link :to="{ name: 'perceraian' }" href="#"
+                      >Perceraian</router-link
+                    >
                   </h3>
                 </div>
+                <!-- chat box -->
+                <div class="fabs">
+                  <div
+                    class="
+                      card card-primary
+                      direct-chat direct-chat-primary
+                      chat
+                    "
+                    style="display: none"
+                  >
+                    <div class="chat_header">
+                      <div class="chat_option">
+                        <div class="header_img">
+                          <img
+                            src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z"
+                          />
+                        </div>
+                        <span id="chat_head">ANYA</span> <br />
+                        <span class="agent">Pengadilan Agama Tulungagung</span>
+                        <span class="online">(Online)</span>
+                        <span
+                          id="chat_fullscreen_loader"
+                          class="chat_fullscreen_loader"
+                          ><i class="fullscreen zmdi zmdi-window-maximize"></i
+                        ></span>
+                        <button
+                          type="button"
+                          style="margin-top: -15px; margin-right: 20px"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                          @click.stop.prevent="toggleFab()"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="chat_body" id="msgs" style="height: 300px">
+                      <!-- chat list -->
+                    </div>
+                    <div id="chat_form" class="chat_converse chat_form">
+                      <a id="chat_fourth_screen" class="fab"
+                        ><i class="zmdi zmdi-arrow-right"></i
+                      ></a>
+                      <span class="chat_msg_item chat_msg_item_admin">
+                        <div class="chat_avatar">
+                          <img
+                            src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
+                          />
+                        </div>
+                        Hey there! Any question?</span
+                      >
+                      <span class="chat_msg_item chat_msg_item_user">
+                        Hello!</span
+                      >
+                      <span class="status">20m ago</span>
+                      <span class="chat_msg_item chat_msg_item_admin">
+                        <div class="chat_avatar">
+                          <img
+                            src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
+                          />
+                        </div>
+                        Agent typically replies in a few hours. Don't miss their
+                        reply.
+                        <div>
+                          <br />
+                          <form class="get-notified">
+                            <label for="chat_log_email"
+                              >Get notified by email</label
+                            >
+                            <input
+                              id="chat_log_email"
+                              placeholder="Enter your email"
+                            />
+                            <i class="zmdi zmdi-chevron-right"></i>
+                          </form></div
+                      ></span>
+                      <span class="chat_msg_item chat_msg_item_admin">
+                        <div class="chat_avatar">
+                          <img
+                            src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
+                          />
+                        </div>
+                        Send message to agent.
+                        <div>
+                          <form class="message_form">
+                            <input placeholder="Your email" />
+                            <input placeholder="Technical issue" />
+                            <textarea
+                              rows="4"
+                              placeholder="Your message"
+                            ></textarea>
+                            <button>Send</button>
+                          </form>
+                        </div></span
+                      >
+                    </div>
+                    <span
+                      style="display: none"
+                      class="waiting"
+                      title="Petunjuk sedang dibacakan, mohon tunggu terlebih dahulu sampai selesai!"
+                    ></span>
+                    <div class="fab_field">
+                      <a
+                        id="fab_send"
+                        @click.stop.prevent="microphoneClick()"
+                        class="fab"
+                        ><i class="fa fa-microphone icon-to-change"></i
+                      ></a>
+                      <textarea
+                        id="chatSend"
+                        name="chat_message"
+                        :placeholder="placeholderValue"
+                        class="chat_field chat_message"
+                        disabled
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <!-- end chat box -->
               </div>
             </div>
           </div>
@@ -34,7 +150,11 @@
 </template>
 
 <script>
-import Nav from './partials/Nav.vue';
+import jQuery from "jquery";
+const $ = jQuery;
+window.$ = $;
+import striptags from "striptags";
+import Nav from "./partials/Nav.vue";
 
 export default {
   beforeCreate: function () {
@@ -63,12 +183,317 @@ export default {
     };
   },
   methods: {
-    
+    toggleFab() {
+      $(".prime").toggleClass("zmdi-comment-outline");
+      $(".prime").toggleClass("zmdi-close");
+      $(".prime").toggleClass("is-active");
+      $(".prime").toggleClass("is-visible");
+      $("#prime").toggleClass("is-float");
+      $(".chat").toggleClass("is-visible");
+      $(".fab").toggleClass("is-visible");
+      this.hideChat(0);
+
+      if ($(".is-visible").is(":hidden")) {
+        $(".chat").show();
+      } else {
+        $(".chat").hide();
+      }
+
+      // if user open the chat
+      this.countOpenFab = this.countOpenFab + 1;
+      if ($(".is-visible").is(":hidden") && this.countOpenFab === 1) {
+        // show greeting only at the first time
+        this.greeting();
+      } else {
+        // if user close the chat, stop window.speechSynthesis(synth.cancel()) and also stop SpeechRecognition()(const recognition)
+        this.synth.cancel();
+      }
+    },
+    hideChat(hide) {
+      switch (hide) {
+        case 0:
+          $("#chat_converse").css("display", "none");
+          $("#chat_body").css("display", "none");
+          $("#chat_form").css("display", "none");
+          $(".chat_login").css("display", "block");
+          $(".chat_fullscreen_loader").css("display", "none");
+          $("#chat_fullscreen").css("display", "none");
+          break;
+        case 1:
+          $("#chat_converse").css("display", "block");
+          $("#chat_body").css("display", "none");
+          $("#chat_form").css("display", "none");
+          $(".chat_login").css("display", "none");
+          $(".chat_fullscreen_loader").css("display", "block");
+          break;
+        case 2:
+          $("#chat_converse").css("display", "none");
+          $("#chat_body").css("display", "block");
+          $("#chat_form").css("display", "none");
+          $(".chat_login").css("display", "none");
+          $(".chat_fullscreen_loader").css("display", "block");
+          break;
+        case 3:
+          $("#chat_converse").css("display", "none");
+          $("#chat_body").css("display", "none");
+          $("#chat_form").css("display", "block");
+          $(".chat_login").css("display", "none");
+          $(".chat_fullscreen_loader").css("display", "block");
+          break;
+        case 4:
+          $("#chat_converse").css("display", "none");
+          $("#chat_body").css("display", "none");
+          $("#chat_form").css("display", "none");
+          $(".chat_login").css("display", "none");
+          $(".chat_fullscreen_loader").css("display", "block");
+          $("#chat_fullscreen").css("display", "block");
+          break;
+      }
+    },
+    microphoneClick() {
+      if (this.placeholderValue === "Send a voice!") {
+        this.synth.cancel(); // stop current bot speaking.
+        this.isClicked = true;
+        this.placeholderValue = "Listening... Please wait!";
+        $("#fab_send").css({ "background-color": "#42A5F5" });
+        $(".icon-to-change").css({ color: "white" });
+        this.recognizeVoice();
+      } else {
+        if (this.synth.speaking) {
+          // if bot still speaking
+          // required for record voice automatically (with if else)
+          console.log("still speaking");
+          $(".waiting").show();
+          $(".waiting").tooltip("show");
+          setInterval(function () {
+            $(".waiting").tooltip("hide").fadeOut(9000).delay(1000);
+          }, 1500);
+        } else {
+          // required for record voice manually (without if else)
+          $("#fab_send").css({ "background-color": "white" });
+          $(".icon-to-change").css({ color: "#42A5F5" });
+          this.placeholderValue = "Send a voice!";
+          this.synth.cancel(); // stop current bot speaking.
+          this.currentRec.stop();
+        }
+      }
+    },
+    voiceTimer() {
+      // it's used with longer texts
+      this.synth.pause();
+      this.synth.resume();
+      this.voiceTimeout = setTimeout(this.voiceTimer, 10000);
+    },
+    greeting() {
+      this.synth.cancel(); // prevent chrome sometimes voice is not found
+      this.voiceTimeout = setTimeout(this.voiceTimer, 10000);
+      this.voiceList = this.synth.getVoices();
+      this.synth.onvoiceschanged = () => {
+        this.voiceList = this.synth.getVoices();
+      };
+      let transcriptGreeting = `Selamat datang di Pengadilan Agama Tulungagung. 
+      Terima kasih telah menghubungi kami. Menu apa yang ingin Anda akses? <br>
+      - <b>Syarat Berperkara.</b> <br>
+         atau <br>
+      - <b>Perceraian</b> ? <br>
+      Silahkan tentukan pilihan Anda!`;
+      this.botSpeech.text = striptags(transcriptGreeting);
+      let voices = window.speechSynthesis.getVoices();
+      this.botSpeech.voice = voices[11];
+      this.botSpeech.lang = "id-ID";
+      this.botSpeech.voiceURI = "native";
+      this.synth.speak(this.botSpeech);
+      if (this.botSpeech.onend) {
+        this.botSpeech.onend = function () {
+          clearTimeout(this.voiceTimeout);
+        };
+      }
+
+      // Show greeting in a chatbox
+      $(".greeting").remove();
+      $(".chat_body").append(
+        '<div class="direct-chat-msg chat-default" style="width: 80%; margin-left: 5px; text-align: left;"></div>'
+      ); // add new element (direct-chat-msg) inside chat_body
+      $(".chat-default").append(
+        "<img class='direct-chat-img' src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z'/>"
+      );
+      $(".chat-default").append(
+        '<div class="direct-chat-text greeting"></div>'
+      );
+      let msg = $(".greeting");
+      msg.html(transcriptGreeting).text();
+    },
+    recognizeVoice() {
+      window.SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new window.SpeechRecognition();
+      recognition.lang = this.lang_;
+      recognition.interimResults = true;
+
+      // event current voice reco word
+      recognition.addEventListener("result", (event) => {
+        var text = Array.from(event.results)
+          .map((result) => result[0])
+          .map((result) => result.transcript)
+          .join("");
+        this.runtimeTranscription_ = text;
+      });
+
+      this.currentRec = recognition;
+
+      this.requestOption();
+    },
+    requestOption() {
+      console.log("listening...");
+      var self = this;
+
+      // end of transcription
+      this.currentRec.addEventListener("end", () => {
+        this.transcription_ = [];
+        this.transcription_.push(this.runtimeTranscription_);
+
+        //this.userVoice = this.transcription_[0];
+
+        if (this.transcription_[0] !== "") {
+          // open link in the same tab and in the same browser
+          // window.location.replace('http://localhost/elven/pa-tulungagung/?s=' + this.transcription_[0]);
+
+          // show voice reply
+          this.voiceList = this.synth.getVoices();
+          this.synth.onvoiceschanged = () => {
+            this.voiceList = this.synth.getVoices();
+          };
+          this.botSpeech.text = `${this.transcription_[0]}`;
+          this.botSpeech.voice = this.voiceList[11];
+
+          if (
+            this.transcription_[0] !== "syarat berperkara" &&
+            this.transcription_[0] !== "perceraian"
+          ) {
+            // required for record voice automatically
+            this.synth.cancel();
+            this.botSpeech.text =
+              "Maaf, pilihan Anda tidak tersedia, silahkan pilih opsi lain!";
+            this.synth.speak(this.botSpeech);
+
+            this.botSpeech.onend = function () {
+              self.recognizeVoice();
+            };
+          }
+
+          if (this.transcription_[0] === "syarat berperkara") {
+            let transcript1 = `Mohon tunggu sebentar, kami akan mengantarkan Anda ke halaman syarat berperkara.`;
+            this.showBotVoice(transcript1);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript1);
+          } 
+          else if (this.transcription_[0] === "perceraian") {
+            let transcript2 = `Mohon tunggu sebentar, kami akan mengantarkan Anda ke halaman perceraian.`;
+            this.showBotVoice(transcript2);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript2);
+          }
+        } else if (
+          this.transcription_[0] === "" &&
+          this.placeholderValue === "Listening... Please wait!"
+        ) {
+          this.synth.cancel();
+          this.botSpeech.text =
+            "Maaf, kami tidak mendengar suara Anda. Silahkan coba lagi!";
+          this.synth.speak(this.botSpeech);
+
+          // required for record voice manually
+          // this.currentRec.stop();
+          // this.botSpeech.onend = function () {
+          //   self.synth.cancel();
+          // };
+          // this.placeholderValue = "Send a voice!";
+          // $("#fab_send").css({ "background-color": "white" });
+          // $(".icon-to-change").css({ color: "#42A5F5" });
+
+          // required for record voice automatically
+          this.botSpeech.onend = function () {
+            self.recognizeVoice();
+          };
+        }
+
+        this.runtimeTranscription_ = "";
+        this.currentRec.stop();
+      });
+      this.currentRec.start();
+    },
+    showBotVoice(transcript) {
+      this.synth.cancel(); // prevent chrome sometimes voice is not found
+      this.voiceTimeout = setTimeout(this.voiceTimer, 100000);
+      this.botSpeech.text = striptags(transcript);
+      this.synth.speak(this.botSpeech);
+      //this.currentRec.stop(); // required for record voice manually
+      if (this.botSpeech.onend) {
+        this.botSpeech.onend = function () {
+          clearTimeout(this.voiceTimeout);
+        };
+      }
+
+      // required for record voice automatically
+      let lastVoice = this.voiceList[this.voiceList.length - 1];
+      if (lastVoice) {
+        var self = this;
+        this.botSpeech.onend = function () {
+          self.goToTheCertainPage();
+        };
+      }
+
+      // required for record voice manually
+      // this.placeholderValue = "Send a voice!";
+      // $("#fab_send").css({ "background-color": "white" });
+      // $(".icon-to-change").css({ color: "#42A5F5" });
+    },
+    showUserVoiceAsText(transcript) {
+      this.indexChatUser = this.indexChatUser + 1;
+      $(".chat_body").append(
+        `<div class='direct-chat-msg right user-chat-${
+          this.indexChatUser + 1
+        }' style="width: 98%; text-align: left;"></div>`
+      );
+      $(`.user-chat-${this.indexChatUser + 1}`).append(
+        "<img class='direct-chat-img' src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z'/>"
+      );
+      $(`.user-chat-${this.indexChatUser + 1}`).append(
+        `<div class="direct-chat-text user-text" style="margin-left:55px;">${transcript}</div>`
+      );
+    },
+    showBotVoiceAsText(transcript) {
+      this.indexChatBot = this.indexChatBot + 1;
+      $(".chat_body").append(
+        `<div class='direct-chat-msg chat-default-${
+          this.indexChatBot + 1
+        }' style="width: 80%; margin-left: 5px; text-align: left;"></div>`
+      ); // add new element (direct-chat-msg) inside chat_body
+      $(`.chat-default-${this.indexChatBot + 1}`).append(
+        "<img class='direct-chat-img' src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z'/>"
+      );
+      $(`.chat-default-${this.indexChatBot + 1}`).append(
+        `<div class="direct-chat-text bot-voice">${transcript}</div>`
+      );
+
+      var div = $(".chat_body");
+      div.scrollTop(div.prop("scrollHeight"));
+    },
+    goToTheCertainPage() {
+      if (this.transcription_[0] === "syarat berperkara") {
+        window.location.replace('http://localhost:8082/user/syarat-berperkara');
+      } else {
+        window.location.replace('http://localhost:8082/user/perceraian');
+      }
+    },
   },
+  watch: {},
   created() {
     //this.checkAuth();
   },
-  mounted() {},
+  mounted() {
+    this.toggleFab();
+  },
 };
 </script>
 

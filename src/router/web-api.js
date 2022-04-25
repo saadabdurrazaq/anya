@@ -6,7 +6,7 @@ const routes = [
     {
         path: '/',
         name: 'welcome',
-        component: () => import( /* webpackChunkName: "login" */ '@/views/user/perceraian.vue') // This part is integrated with C:\xampp\htdocs\my-project\laravue\vue-passport\public\index.html
+        component: () => import( /* webpackChunkName: "login" */ '@/views/user/Welcome.vue') // This part is integrated with C:\xampp\htdocs\my-project\laravue\vue-passport\public\index.html
     },
     {
         path: '/user/syarat-berperkara',

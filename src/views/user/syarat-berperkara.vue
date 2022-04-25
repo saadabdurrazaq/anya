@@ -116,7 +116,11 @@
                         </div></span
                       >
                     </div>
-                    <span style="display:none" class="waiting" title="Petunjuk sedang dibacakan, mohon tunggu terlebih dahulu sampai selesai!"></span>
+                    <span
+                      style="display: none"
+                      class="waiting"
+                      title="Petunjuk sedang dibacakan, mohon tunggu terlebih dahulu sampai selesai!"
+                    ></span>
                     <div class="fab_field">
                       <a
                         id="fab_send"
@@ -198,7 +202,14 @@ export default {
       this.countOpenFab = this.countOpenFab + 1;
       if ($(".is-visible").is(":hidden") && this.countOpenFab === 1) {
         // show greeting only at the first time
-        this.greeting();
+        let transcriptGreeting = `Selamat datang di halaman Syarat Berperkara. Terima kasih telah menghubungi kami. <br>
+        <ul>
+           <li>Untuk mendapatkan informasi mengenai syarat-syarat berperkara, ucapkan <b>syarat-syarat berperkara</b>.</li>
+           <li>Untuk mengakses halaman home, ucapkan <b>home</b>.</li>
+           <li>Untuk mengakses halaman perceraian, ucapkan <b>perceraian</b>.</li>
+        </ul>
+        Silahkan tentukan pilihan Anda!`;
+        this.greeting(transcriptGreeting);
       } else {
         // if user close the chat, stop window.speechSynthesis(synth.cancel()) and also stop SpeechRecognition()(const recognition)
         this.synth.cancel();
@@ -253,15 +264,15 @@ export default {
         $("#fab_send").css({ "background-color": "#42A5F5" });
         $(".icon-to-change").css({ color: "white" });
         this.recognizeVoice();
-      } 
-      else {
-        if(this.synth.speaking) { // if bot still speaking
+      } else {
+        if (this.synth.speaking) {
+          // if bot still speaking
           // required for record voice automatically (with if else)
-          console.log('still speaking');
+          console.log("still speaking");
           $(".waiting").show();
-          $('.waiting').tooltip("show");
-          setInterval(function() {
-            $('.waiting').tooltip("hide").fadeOut(9000).delay(1000);
+          $(".waiting").tooltip("show");
+          setInterval(function () {
+            $(".waiting").tooltip("hide").fadeOut(9000).delay(1000);
           }, 1500);
         } else {
           // required for record voice manually (without if else)
@@ -279,27 +290,15 @@ export default {
       this.synth.resume();
       this.voiceTimeout = setTimeout(this.voiceTimer, 10000);
     },
-    greeting() {
+    greeting(words) {
       this.synth.cancel(); // prevent chrome sometimes voice is not found
       this.voiceTimeout = setTimeout(this.voiceTimer, 10000);
       this.voiceList = this.synth.getVoices();
       this.synth.onvoiceschanged = () => {
         this.voiceList = this.synth.getVoices();
       };
-      let transcriptGreeting = `Selamat datang di Pengadilan Agama Tulungagung. 
-      Terima kasih telah menghubungi kami. Di sini kami bisa memberi informasi kepada Anda beberapa hal: <br>
-      - Syarat pengajuan cerai talak. <br>
-      - Syarat pengajuan cerai gugat. <br>
-      - Syarat gugatan harta bersama. <br>
-      - Syarat gugatan waris. <br>
-      - Syarat dispensasi kawin. <br>
-      - Syarat perwalian. <br>
-      - Syarat izin poligami. <br>
-      - Syarat penetapan ahli waris. <br>
-      - Syarat isbat nikah.  <br>
-      - Syarat pengangkatan anak. <br>
-      Silahkan tentukan pilihan Anda!`;
-      this.botSpeech.text = striptags(transcriptGreeting);
+
+      this.botSpeech.text = striptags(words);
       let voices = window.speechSynthesis.getVoices();
       this.botSpeech.voice = voices[11];
       this.botSpeech.lang = "id-ID";
@@ -312,26 +311,18 @@ export default {
       }
 
       // Show greeting in a chatbox
-      $(".greeting").remove();
+      this.indexChatBot = this.indexChatBot + 1;
       $(".chat_body").append(
-        '<div class="direct-chat-msg chat-default" style="width: 80%; margin-left: 5px; text-align: left;"></div>'
+        `<div class="direct-chat-msg chat-default-${
+          this.indexChatBot + 1
+        }" style="width: 80%; margin-left: 5px; text-align: left;"></div>`
       ); // add new element (direct-chat-msg) inside chat_body
-      $(".chat-default").append(
+      $(`.chat-default-${this.indexChatBot + 1}`).append(
         "<img class='direct-chat-img' src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z'/>"
       );
-      $(".chat-default").append(
-        '<div class="direct-chat-text greeting"></div>'
+      $(`.chat-default-${this.indexChatBot + 1}`).append(
+        `<div class="direct-chat-text greeting">${words}</div>`
       );
-      let msg = $(".greeting");
-      msg.html(transcriptGreeting).text();
-
-      // if user speak, start proceed its voice
-      if (this.isClicked === true) {
-        var self = this;
-        this.botSpeech.onend = function () {
-          self.startSpeechToTxt();
-        };
-      }
     },
     recognizeVoice() {
       window.SpeechRecognition =
@@ -386,7 +377,10 @@ export default {
             this.transcription_[0] !== "syarat izin poligami" &&
             this.transcription_[0] !== "syarat penetapan ahli waris" &&
             this.transcription_[0] !== "syarat isbat nikah" &&
-            this.transcription_[0] !== "syarat pengangkatan anak"
+            this.transcription_[0] !== "syarat pengangkatan anak" &&
+            this.transcription_[0] !== "syarat-syarat berperkara" &&
+            this.transcription_[0] !== "home" &&
+            this.transcription_[0] !== "perceraian"
           ) {
             // required for record voice manually
             // this.placeholderValue = "";
@@ -428,9 +422,8 @@ export default {
             this.showBotVoice(transcript1);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript1);
-          } else if (
-            this.transcription_[0] === "syarat pengajuan cerai gugat"
-          ) {
+          } 
+          else if (this.transcription_[0] === "syarat pengajuan cerai gugat") {
             let transcript2 = `Berikut syarat-syarat pengajuan cerai gugat: <br>
               1. Surat gugatan rangkap 4. <br>
               2. Fotocopy KTP asli penggugat. <br>
@@ -545,6 +538,33 @@ export default {
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript10);
           }
+          else if (this.transcription_[0] === "syarat-syarat berperkara") {
+            let transcriptGreeting = `Berikut informasi mengenai syarat-syarat berperkara yang bisa Anda dapatkan: <br>
+            - Syarat pengajuan cerai talak. <br>
+            - Syarat pengajuan cerai gugat. <br>
+            - Syarat gugatan harta bersama. <br>
+            - Syarat gugatan waris. <br>
+            - Syarat dispensasi kawin. <br>
+            - Syarat perwalian. <br>
+            - Syarat izin poligami. <br>
+            - Syarat penetapan ahli waris. <br>
+            - Syarat isbat nikah.  <br>
+            - Syarat pengangkatan anak. <br>
+            Silahkan tentukan pilihan Anda!`;
+            this.showBotVoice(transcriptGreeting);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcriptGreeting);
+          } else if (this.transcription_[0] === "perceraian") {
+            let transcript1 = `Mohon tunggu sebentar, kami akan mengantarkan Anda ke halaman perceraian.`;
+            this.showBotVoice(transcript1);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript1);
+          } else if (this.transcription_[0] === "home") {
+            let transcript2 = `Mohon tunggu sebentar, kami akan mengantarkan Anda ke halaman home.`;
+            this.showBotVoice(transcript2);
+            this.showUserVoiceAsText(this.transcription_[0]);
+            this.showBotVoiceAsText(transcript2);
+          }
         } else if (
           this.transcription_[0] === "" &&
           this.placeholderValue === "Listening... Please wait!"
@@ -591,7 +611,8 @@ export default {
       if (lastVoice) {
         var self = this;
         this.botSpeech.onend = function () {
-          self.recognizeVoice();
+          //self.recognizeVoice();
+          self.goToTheCertainPage();
         };
       }
 
@@ -627,9 +648,18 @@ export default {
       $(`.chat-default-${this.indexChatBot + 1}`).append(
         `<div class="direct-chat-text bot-voice">${transcript}</div>`
       );
-      
+
       var div = $(".chat_body");
-      div.scrollTop(div.prop('scrollHeight'));
+      div.scrollTop(div.prop("scrollHeight"));
+    },
+    goToTheCertainPage() {
+      if (this.transcription_[0] === "home") {
+        window.location.replace("http://localhost:8082");
+      } else if (this.transcription_[0] === "perceraian") {
+        window.location.replace("http://localhost:8082/user/perceraian");
+      } else  {
+        this.recognizeVoice();
+      }
     },
   },
   watch: {},
@@ -637,7 +667,7 @@ export default {
     //this.checkAuth();
   },
   mounted() {
-    //
+    this.toggleFab();
   },
 };
 </script>
