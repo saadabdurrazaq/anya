@@ -6,7 +6,7 @@
         <div class="content">
           <div class="container">
             <div class="row justify-content-center">
-              <div class="col-md-12">
+              <div class="col-md-7">
                 <div style="text-align: center; margin-top: 20%">
                   <h2>Syarat Berperkara di PA Tulungagung</h2>
                   <br />
@@ -20,122 +20,116 @@
                   </h3>
                 </div>
                 <!-- chat box -->
-                <div class="fabs">
-                  <div
-                    class="
-                      card card-primary
-                      direct-chat direct-chat-primary
-                      chat
-                    "
-                    style="display: none"
-                  >
-                    <div class="chat_header">
-                      <div class="chat_option">
-                        <div class="header_img">
-                          <img
-                            src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z"
-                          />
-                        </div>
-                        <span id="chat_head">ANYA</span> <br />
-                        <span class="agent">Pengadilan Agama Tulungagung</span>
-                        <span class="online">(Online)</span>
-                        <span
-                          id="chat_fullscreen_loader"
-                          class="chat_fullscreen_loader"
-                          ><i class="fullscreen zmdi zmdi-window-maximize"></i
-                        ></span>
-                        <button
-                          type="button"
-                          style="margin-top: -15px; margin-right: 20px"
-                          class="close"
-                          data-dismiss="modal"
-                          aria-label="Close"
-                          @click.stop.prevent="toggleFab()"
-                        >
-                          <span aria-hidden="true">&times;</span>
-                        </button>
+                <div
+                  class="card card-danger direct-chat direct-chat-danger chat" style="display: none; bottom:30%; width:100%"
+                >
+                  <div class="card-header">
+                    <div class="chat_option">
+                      <div class="header_img">
+                        <img
+                          src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z"
+                        />
                       </div>
-                    </div>
-                    <div class="chat_body" id="msgs" style="height: 300px">
-                      <!-- chat list -->
-                    </div>
-                    <div id="chat_form" class="chat_converse chat_form">
-                      <a id="chat_fourth_screen" class="fab"
-                        ><i class="zmdi zmdi-arrow-right"></i
-                      ></a>
-                      <span class="chat_msg_item chat_msg_item_admin">
-                        <div class="chat_avatar">
-                          <img
-                            src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
-                          />
-                        </div>
-                        Hey there! Any question?</span
-                      >
-                      <span class="chat_msg_item chat_msg_item_user">
-                        Hello!</span
-                      >
-                      <span class="status">20m ago</span>
-                      <span class="chat_msg_item chat_msg_item_admin">
-                        <div class="chat_avatar">
-                          <img
-                            src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
-                          />
-                        </div>
-                        Agent typically replies in a few hours. Don't miss their
-                        reply.
-                        <div>
-                          <br />
-                          <form class="get-notified">
-                            <label for="chat_log_email"
-                              >Get notified by email</label
-                            >
-                            <input
-                              id="chat_log_email"
-                              placeholder="Enter your email"
-                            />
-                            <i class="zmdi zmdi-chevron-right"></i>
-                          </form></div
+                      <span id="chat_head">ANYA</span> <br />
+                      <span class="agent">Pengadilan Agama Tulungagung</span>
+                      <span class="online"> (Online)</span>
+                      <span
+                        id="chat_fullscreen_loader"
+                        class="chat_fullscreen_loader"
+                        ><i class="fullscreen zmdi zmdi-window-maximize"></i
                       ></span>
-                      <span class="chat_msg_item chat_msg_item_admin">
-                        <div class="chat_avatar">
-                          <img
-                            src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
-                          />
-                        </div>
-                        Send message to agent.
-                        <div>
-                          <form class="message_form">
-                            <input placeholder="Your email" />
-                            <input placeholder="Technical issue" />
-                            <textarea
-                              rows="4"
-                              placeholder="Your message"
-                            ></textarea>
-                            <button>Send</button>
-                          </form>
-                        </div></span
+                      <button
+                        type="button"
+                        style="margin-top: -15px; margin-right: 20px"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                        @click.stop.prevent="closeChat()"
                       >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
-                    <span
-                      style="display: none"
-                      class="waiting"
-                      title="Petunjuk sedang dibacakan, mohon tunggu terlebih dahulu sampai selesai!"
+                  </div>
+                  <div class="chat_body" id="msgs">
+                    <!-- chat list -->
+                  </div>
+                  <div id="chat_form" class="chat_converse chat_form">
+                    <a id="chat_fourth_screen" class="fab"
+                      ><i class="zmdi zmdi-arrow-right"></i
+                    ></a>
+                    <span class="chat_msg_item chat_msg_item_admin">
+                      <div class="chat_avatar">
+                        <img
+                          src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
+                        />
+                      </div>
+                      Hey there! Any question?</span
+                    >
+                    <span class="chat_msg_item chat_msg_item_user">
+                      Hello!</span
+                    >
+                    <span class="status">20m ago</span>
+                    <span class="chat_msg_item chat_msg_item_admin">
+                      <div class="chat_avatar">
+                        <img
+                          src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
+                        />
+                      </div>
+                      Agent typically replies in a few hours. Don't miss their
+                      reply.
+                      <div>
+                        <br />
+                        <form class="get-notified">
+                          <label for="chat_log_email"
+                            >Get notified by email</label
+                          >
+                          <input
+                            id="chat_log_email"
+                            placeholder="Enter your email"
+                          />
+                          <i class="zmdi zmdi-chevron-right"></i>
+                        </form></div
                     ></span>
-                    <div class="fab_field">
-                      <a
-                        id="fab_send"
-                        @click.stop.prevent="microphoneClick()"
-                        class="fab"
-                        ><i class="fa fa-microphone icon-to-change"></i
-                      ></a>
-                      <textarea
-                        id="chatSend"
-                        name="chat_message"
-                        :placeholder="placeholderValue"
-                        class="chat_field chat_message"
-                        disabled
-                      ></textarea>
-                    </div>
+                    <span class="chat_msg_item chat_msg_item_admin">
+                      <div class="chat_avatar">
+                        <img
+                          src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
+                        />
+                      </div>
+                      Send message to agent.
+                      <div>
+                        <form class="message_form">
+                          <input placeholder="Your email" />
+                          <input placeholder="Technical issue" />
+                          <textarea
+                            rows="4"
+                            placeholder="Your message"
+                          ></textarea>
+                          <button>Send</button>
+                        </form>
+                      </div></span
+                    >
+                  </div>
+                  <span
+                    style="display: none"
+                    class="waiting"
+                    title="Petunjuk sedang dibacakan, mohon tunggu terlebih dahulu sampai selesai!"
+                  ></span>
+                  <div class="fab_field">
+                    <a
+                      id="fab_send"
+                      @click.stop.prevent="microphoneClick()"
+                      class="fab"
+                      ><i class="fa fa-microphone icon-to-change"></i
+                    ></a>
+                    <textarea
+                      id="chatSend"
+                      name="chat_message"
+                      :placeholder="placeholderValue"
+                      class="chat_field chat_message"
+                      style="margin-top:10px;"
+                      disabled
+                    ></textarea>
                   </div>
                 </div>
                 <!-- end chat box -->
@@ -182,6 +176,10 @@ export default {
     };
   },
   methods: {
+    closeChat() {
+      $(".chat").hide();
+      this.synth.cancel();
+    },
     toggleFab() {
       $(".prime").toggleClass("zmdi-comment-outline");
       $(".prime").toggleClass("zmdi-close");
@@ -422,8 +420,9 @@ export default {
             this.showBotVoice(transcript1);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript1);
-          } 
-          else if (this.transcription_[0] === "syarat pengajuan cerai gugat") {
+          } else if (
+            this.transcription_[0] === "syarat pengajuan cerai gugat"
+          ) {
             let transcript2 = `Berikut syarat-syarat pengajuan cerai gugat: <br>
               1. Surat gugatan rangkap 4. <br>
               2. Fotocopy KTP asli penggugat. <br>
@@ -537,8 +536,7 @@ export default {
             this.showBotVoice(transcript10);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript10);
-          }
-          else if (this.transcription_[0] === "syarat-syarat berperkara") {
+          } else if (this.transcription_[0] === "syarat-syarat berperkara") {
             let transcriptGreeting = `Berikut informasi mengenai syarat-syarat berperkara yang bisa Anda dapatkan: <br>
             - Syarat pengajuan cerai talak. <br>
             - Syarat pengajuan cerai gugat. <br>
@@ -657,7 +655,7 @@ export default {
         window.location.replace("http://localhost:8082");
       } else if (this.transcription_[0] === "perceraian") {
         window.location.replace("http://localhost:8082/user/perceraian");
-      } else  {
+      } else {
         this.recognizeVoice();
       }
     },
@@ -851,23 +849,7 @@ ul li {
   transition-delay: 80ms;
 }
 
-.chat {
-  position: fixed;
-  right: 50%;
-  top: 15%;
-  font-size: 12px;
-  line-height: 22px;
-  font-family: "Roboto";
-  font-weight: 500;
-  -webkit-font-smoothing: antialiased;
-  font-smoothing: antialiased;
-  opacity: 0;
-  box-shadow: 1px 1px 100px 2px rgba(0, 0, 0, 0.22);
-  border-radius: 10px;
-  -webkit-transition: all 0.2s ease-out;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
+
 
 .chat_fullscreen {
   position: fixed;
@@ -961,7 +943,8 @@ ul li {
 
 .chat_body {
   background: #fff;
-  width: 600px;
+  width: 100%;
+  height: 300px;
   display: inline-block;
   text-align: center;
   overflow-y: auto;
@@ -1064,7 +1047,6 @@ a {
   cursor: pointer;
 }
 .fab_field {
-  width: 600px;
   display: inline-block;
   text-align: center;
   background: #fff;
