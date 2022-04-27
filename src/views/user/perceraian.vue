@@ -683,6 +683,7 @@ export default {
   },
   mounted() {
     $('.direct-chat-msg').remove();
+    $(".icon-to-change").css({ color: "" });
     this.toggleFab();
   },
 };
