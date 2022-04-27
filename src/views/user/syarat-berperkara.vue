@@ -21,7 +21,8 @@
                 </div>
                 <!-- chat box -->
                 <div
-                  class="card card-danger direct-chat direct-chat-danger chat" style="display: none; bottom:30%; width:100%"
+                  class="card card-danger direct-chat direct-chat-danger chat"
+                  style="display: none; bottom: 30%; width: 100%"
                 >
                   <div class="card-header">
                     <div class="chat_option">
@@ -127,7 +128,7 @@
                       name="chat_message"
                       :placeholder="placeholderValue"
                       class="chat_field chat_message"
-                      style="margin-top:10px;"
+                      style="margin-top: 10px"
                       disabled
                     ></textarea>
                   </div>
@@ -148,6 +149,7 @@ const $ = jQuery;
 window.$ = $;
 import striptags from "striptags";
 import Nav from "./partials/Nav.vue";
+import { useRouter } from "vue-router";
 
 export default {
   beforeCreate: function () {
@@ -173,6 +175,7 @@ export default {
       indexChatBot: 0,
       countOpenFab: 0,
       voiceTimeout: 0,
+      router: useRouter(),
     };
   },
   methods: {
@@ -284,9 +287,18 @@ export default {
     },
     voiceTimer() {
       // it's used with longer texts
-      this.synth.pause();
-      this.synth.resume();
-      this.voiceTimeout = setTimeout(this.voiceTimer, 10000);
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        this.synth.resume();
+        this.voiceTimeout = setTimeout(this.voiceTimer, 10000);
+      } else {
+        this.synth.pause(); // only work at chrome web, but when we use chrome mobile, we can't use it.
+        this.synth.resume();
+        this.voiceTimeout = setTimeout(this.voiceTimer, 10000);
+      }
     },
     greeting(words) {
       this.synth.cancel(); // prevent chrome sometimes voice is not found
@@ -311,14 +323,12 @@ export default {
       // Show greeting in a chatbox
       this.indexChatBot = this.indexChatBot + 1;
       $(".chat_body").append(
-        `<div class="direct-chat-msg chat-default-${
-          this.indexChatBot + 1
-        }" style="width: 80%; margin-left: 5px; text-align: left;"></div>`
-      ); // add new element (direct-chat-msg) inside chat_body
-      $(`.chat-default-${this.indexChatBot + 1}`).append(
+        `<div class="chat-default" style="width: 80%; margin-left: 5px; text-align: left;"></div>`
+      ); // add new element above inside chat_body
+      $(`.chat-default`).append(
         "<img class='direct-chat-img' src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z'/>"
       );
-      $(`.chat-default-${this.indexChatBot + 1}`).append(
+      $(`.chat-default`).append(
         `<div class="direct-chat-text greeting">${words}</div>`
       );
     },
@@ -652,9 +662,13 @@ export default {
     },
     goToTheCertainPage() {
       if (this.transcription_[0] === "home") {
-        window.location.replace("http://localhost:8082");
+        return this.router.push({
+          name: "welcome",
+        });
       } else if (this.transcription_[0] === "perceraian") {
-        window.location.replace("http://localhost:8082/user/perceraian");
+        return this.router.push({
+          name: "perceraian",
+        });
       } else {
         this.recognizeVoice();
       }
@@ -665,6 +679,7 @@ export default {
     //this.checkAuth();
   },
   mounted() {
+    $('.direct-chat-msg').remove();
     this.toggleFab();
   },
 };
@@ -848,8 +863,6 @@ ul li {
   -webkit-transition-delay: 80ms;
   transition-delay: 80ms;
 }
-
-
 
 .chat_fullscreen {
   position: fixed;
