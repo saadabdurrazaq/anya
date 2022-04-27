@@ -666,9 +666,10 @@ export default {
           name: "welcome",
         });
       } else if (this.transcription_[0] === "perceraian") {
-        return this.router.push({
-          name: "perceraian",
-        });
+        // return this.router.push({
+        //   name: "perceraian",
+        // });
+        window.location.replace('https://hai.pa-tulungagung.go.id/user/perceraian');
       } else {
         this.recognizeVoice();
       }

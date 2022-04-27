@@ -1,0 +1,12 @@
+PROBLEMS:
+- In case home > perceraian page > home > perceraian page: 
+  listening doesnt work after some questions if page is not loaded.
+  This is caused the computer cannot redirect to certain page, and cannot recognize voice. 
+- In perceraian page (PC version), if page is not loaded bot voice appears in English accent.     
+- Oftentimes text to speech (PC version)  takes too long delay
+- Hosted Vue app cannot loaded in Instagram. 
+
+NEXT FEATURES:
+- Adding loader image when bot speech is still loading. 
+- 
+

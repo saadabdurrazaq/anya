@@ -53,6 +53,16 @@
                     </div>
                   </div>
                   <div class="chat_body" id="msgs">
+                    <div
+                      v-if="loader"
+                      style="position: absolute; top: 40%; left: 40%; z-index: 1;"
+                    >
+                      <div class="lds-facebook">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      </div>
+                    </div>
                     <!-- chat list -->
                   </div>
                   <div id="chat_form" class="chat_converse chat_form">
@@ -152,6 +162,7 @@ import striptags from "striptags";
 import Nav from "./partials/Nav.vue";
 import swal from "sweetalert2";
 import { useRouter } from "vue-router";
+import '@/assets/css/custom.css';
 
 export default {
   beforeCreate: function () {
@@ -178,6 +189,7 @@ export default {
       countOpenFab: 0,
       voiceTimeout: 0,
       router: useRouter(),
+      loader: false,
     };
   },
   methods: {
@@ -330,7 +342,14 @@ export default {
       this.botSpeech.voice = voices[11];
       this.botSpeech.lang = "id-ID";
       this.botSpeech.voiceURI = "native";
+      this.loader = true;
       this.synth.speak(this.botSpeech);
+
+      var self = this;
+      this.botSpeech.onstart = function () {
+        self.loader = false; 
+      };
+
       if (this.botSpeech.onend) {
         this.botSpeech.onend = function () {
           //this.synth.cancel();
@@ -513,9 +532,12 @@ export default {
           name: "syarat-berperkara",
         });
       } else {
-        return this.router.push({
-          name: "perceraian",
-        });
+        // return this.router.push({
+        //   name: "perceraian",
+        // });
+        window.location.replace(
+          "https://hai.pa-tulungagung.go.id/user/perceraian"
+        );
       }
     },
   },
@@ -524,7 +546,7 @@ export default {
     //this.checkAuth();
   },
   mounted() {
-    $('.direct-chat-msg').remove();
+    $(".direct-chat-msg").remove();
     $(".icon-to-change").css({ color: "" });
     this.toggleFab();
   },
