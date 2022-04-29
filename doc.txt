@@ -7,6 +7,22 @@ PROBLEMS:
 - Hosted Vue app cannot loaded in Instagram. 
 
 NEXT FEATURES:
-- Adding loader image when bot speech is still loading. 
-- 
+- Show loader image when bot speech is still loading. 
+- Show icon block on microphone when we try to hover microphone while bot speech still loading. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

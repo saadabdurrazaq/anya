@@ -3,139 +3,155 @@
   <div class="wrapper">
     <div>
       <div class="content-header">
-        <div class="content">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-md-7">
-                <div style="text-align: center; margin-top: 20%">
-                  <h2>Perceraian</h2>
-                  <br />
-                  <h3>
-                    <a
-                      href=""
-                      id="okBtn"
-                      ref="okBtn"
-                      @click.stop.prevent="toggleFab()"
-                      >Klik di sini untuk memulai</a
-                    >
-                  </h3>
-                </div>
-                <!-- chat box -->
-                <div
-                  class="card card-danger direct-chat direct-chat-danger chat"
-                  style="display: none; bottom: 30%; width: 100%"
-                >
-                  <div class="card-header">
-                    <div class="chat_option">
-                      <div class="header_img">
-                        <img
-                          src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z"
-                        />
-                      </div>
-                      <span id="chat_head">ANYA</span> <br />
-                      <span class="agent">Pengadilan Agama Tulungagung</span>
-                      <span class="online">(Online)</span>
-                      <span
-                        id="chat_fullscreen_loader"
-                        class="chat_fullscreen_loader"
-                        ><i class="fullscreen zmdi zmdi-window-maximize"></i
-                      ></span>
-                      <button
-                        type="button"
-                        style="margin-top: -15px; margin-right: 20px"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                        @click.stop.prevent="closeChat()"
-                      >
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="chat_body" id="msgs">
-                    <!-- chat list -->
-                  </div>
-                  <div id="chat_form" class="chat_converse chat_form">
-                    <a id="chat_fourth_screen" class="fab"
-                      ><i class="zmdi zmdi-arrow-right"></i
-                    ></a>
-                    <span class="chat_msg_item chat_msg_item_admin">
-                      <div class="chat_avatar">
-                        <img
-                          src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
-                        />
-                      </div>
-                      Hey there! Any question?</span
-                    >
-                    <span class="chat_msg_item chat_msg_item_user">
-                      Hello!</span
-                    >
-                    <span class="status">20m ago</span>
-                    <span class="chat_msg_item chat_msg_item_admin">
-                      <div class="chat_avatar">
-                        <img
-                          src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
-                        />
-                      </div>
-                      Agent typically replies in a few hours. Don't miss their
-                      reply.
-                      <div>
-                        <br />
-                        <form class="get-notified">
-                          <label for="chat_log_email"
-                            >Get notified by email</label
-                          >
-                          <input
-                            id="chat_log_email"
-                            placeholder="Enter your email"
-                          />
-                          <i class="zmdi zmdi-chevron-right"></i>
-                        </form></div
-                    ></span>
-                    <span class="chat_msg_item chat_msg_item_admin">
-                      <div class="chat_avatar">
-                        <img
-                          src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
-                        />
-                      </div>
-                      Send message to agent.
-                      <div>
-                        <form class="message_form">
-                          <input placeholder="Your email" />
-                          <input placeholder="Technical issue" />
-                          <textarea
-                            rows="4"
-                            placeholder="Your message"
-                          ></textarea>
-                          <button>Send</button>
-                        </form>
-                      </div></span
-                    >
-                  </div>
-                  <span
-                    style="display: none"
-                    class="waiting"
-                    title="Petunjuk sedang dibacakan, mohon tunggu terlebih dahulu sampai selesai!"
-                  ></span>
-                  <div class="fab_field">
-                    <a
-                      id="fab_send"
-                      @click.stop.prevent="microphoneClick()"
-                      class="fab"
-                      ><i class="fa fa-microphone icon-to-change"></i
-                    ></a>
-                    <textarea
-                      id="chatSend"
-                      name="chat_message"
-                      :placeholder="placeholderValue"
-                      class="chat_field chat_message"
-                      style="margin-top: 10px"
-                      disabled
-                    ></textarea>
-                  </div>
-                </div>
-                <!-- end chat box -->
+        <div>
+          <div class="row">
+            <div class="col-md-3" style="margin-right: 40px">
+              <img
+                style="margin-left: 15px; width: 100%; height: auto"
+                :src="`${publicPath}sidebar-left.png`"
+              />
+            </div>
+            <div class="col-md-7">
+              <div
+                style="
+                  text-align: center;
+                  position: absolute;
+                  top: 30%;
+                  bottom: 0;
+                  left: 0;
+                  right: 0;
+                  width: 90%;
+                "
+              >
+                <h2>Gugatan Mandiri</h2>
+                <br />
+                <h3>
+                  <a
+                    href=""
+                    id="okBtn"
+                    ref="okBtn"
+                    @click.stop.prevent="toggleFab()"
+                    >Klik di sini untuk memulai</a
+                  >
+                </h3>
               </div>
+              <!-- chat box -->
+              <div
+                class="card card-danger direct-chat direct-chat-danger chat"
+                style="display:none; top:10%; width: 90%;margin-bottom:100px;"
+              >
+                <div class="card-header">
+                  <div class="chat_option">
+                    <div class="header_img">
+                      <img :src="`${publicPath}pp-anya.png`" />
+                    </div>
+                    <span id="chat_head">ANYA</span> <br />
+                    <span class="agent">Pengadilan Agama Tulungagung</span>
+                    <span class="online">(Online)</span>
+                    <span
+                      id="chat_fullscreen_loader"
+                      class="chat_fullscreen_loader"
+                      ><i class="fullscreen zmdi zmdi-window-maximize"></i
+                    ></span>
+                    <button
+                      type="button"
+                      style="margin-top: -15px; margin-right: 20px"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                      @click.stop.prevent="closeChat()"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="chat_body" id="msgs">
+                  <!-- chat list -->
+                </div>
+                <div id="chat_form" class="chat_converse chat_form">
+                  <a id="chat_fourth_screen" class="fab"
+                    ><i class="zmdi zmdi-arrow-right"></i
+                  ></a>
+                  <span class="chat_msg_item chat_msg_item_admin">
+                    <div class="chat_avatar">
+                      <img
+                        src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
+                      />
+                    </div>
+                    Hey there! Any question?</span
+                  >
+                  <span class="chat_msg_item chat_msg_item_user"> Hello!</span>
+                  <span class="status">20m ago</span>
+                  <span class="chat_msg_item chat_msg_item_admin">
+                    <div class="chat_avatar">
+                      <img
+                        src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
+                      />
+                    </div>
+                    Agent typically replies in a few hours. Don't miss their
+                    reply.
+                    <div>
+                      <br />
+                      <form class="get-notified">
+                        <label for="chat_log_email"
+                          >Get notified by email</label
+                        >
+                        <input
+                          id="chat_log_email"
+                          placeholder="Enter your email"
+                        />
+                        <i class="zmdi zmdi-chevron-right"></i>
+                      </form></div
+                  ></span>
+                  <span class="chat_msg_item chat_msg_item_admin">
+                    <div class="chat_avatar">
+                      <img
+                        src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg"
+                      />
+                    </div>
+                    Send message to agent.
+                    <div>
+                      <form class="message_form">
+                        <input placeholder="Your email" />
+                        <input placeholder="Technical issue" />
+                        <textarea
+                          rows="4"
+                          placeholder="Your message"
+                        ></textarea>
+                        <button>Send</button>
+                      </form>
+                    </div></span
+                  >
+                </div>
+                <span
+                  style="display: none"
+                  class="waiting"
+                  title="Petunjuk sedang dibacakan, mohon tunggu terlebih dahulu sampai selesai!"
+                ></span>
+                <div class="fab_field">
+                  <a
+                    id="fab_send"
+                    @click.stop.prevent="microphoneClick()"
+                    class="fab"
+                    ><i class="fa fa-microphone icon-to-change"></i
+                  ></a>
+                  <textarea
+                    id="chatSend"
+                    name="chat_message"
+                    :placeholder="placeholderValue"
+                    class="chat_field chat_message"
+                    style="margin-top: 10px"
+                    disabled
+                  ></textarea>
+                </div>
+              </div>
+              <!-- end chat box -->
+            </div>
+             <div
+              class="col-md-1"
+              style="margin-bottom:10px;"
+            >
+              <img style="min-height:85vh;width:120%;max-width: 400px;height: auto;" :src="`${publicPath}anya.png`" />
             </div>
           </div>
         </div>
@@ -161,9 +177,10 @@ export default {
   },
   data() {
     return {
+      publicPath: process.env.BASE_URL,
       staffData: "",
       questions: [
-        "Di Pengadilan Agama manakah perkara ini akan didaftarkan? Jawab dengan format: <br> &lt;nama kota&gt;",
+        "Sebelum pertanyaan dimulai, kami ingin menginformasikan kepada Anda, jika Anda ingin mengakhiri percakapan ini, ucapkan kata <b>cukup</b>. <br><br> Baik, kita mulai percakapan gugatan mandiri sekarang. <br><br> Di Pengadilan Agama manakah perkara ini akan didaftarkan? Cukup jawab dengan format: <br><b>nama kota</b>",
 
         // identitas tergugat
         "Siapakah nama Anda?",
@@ -190,8 +207,8 @@ export default {
         "Di mana KUA tempat menikah Anda?",
         "Sebutkan nomor kutipan akta nikah Anda!",
         "Sebutkan tanggal kutipan akta nikah Anda!",
-        "Setelah menikah, di manakah Anda dan Pasangan Anda hidup bersama dan berapa lama? Jika Anda tinggal bersama pasangan, jawab dengan format:<br> <b>tinggal bersama pasangan di &lt;nama tempat tinggal&gt; selama &lt;lama tinggal&gt;</b>.<br> Namun jika Anda tidak tinggal bersama pasangan, jawab dengan format: <br><b>tinggal di &lt;nama tempat tinggal&gt; sedangkan pasangan tinggal di &lt;nama tempat tinggal&gt; selama &lt;lama tinggal&gt; </b><br>",
-        "Apakah Selama Pernikahan Anda dan pasangan Anda dikaruniai anak? Jika sudah dikaruniai anak, jawab dengan format: <br> <b>sudah dikaruniai anak sebanyak &lt;jumlah anak&gt;</b>.<br> Jika belum dikaruniai anak, jawab hanya dengan format: <br><b>belum dikaruniai anak</b>",
+        "Setelah menikah, di manakah Anda dan Pasangan Anda hidup bersama dan berapa lama? Jika Anda tinggal bersama pasangan, jawab dengan format:<br> <b>tinggal bersama pasangan di <b>nama tempat tinggal</b> selama <b>lama tinggal</b></b>.<br> Namun jika Anda tidak tinggal bersama pasangan, jawab dengan format: <br><b>tinggal di <b>nama tempat tinggal</b> sedangkan pasangan tinggal di <b>nama tempat tinggal</b> selama <b>lama tinggal</b> </b><br>",
+        "Apakah Selama Pernikahan Anda dan pasangan Anda dikaruniai anak? Jika sudah dikaruniai anak, jawab dengan format: <br> <b>sudah dikaruniai anak sebanyak <b>jumlah anak</b></b>.<br> Jika belum dikaruniai anak, jawab hanya dengan format: <br><b>belum dikaruniai anak</b>",
 
         // start from index 23
         "Sejak kapan rumah tangga Anda tidak harmonis?",
@@ -222,6 +239,7 @@ export default {
       voiceTimeout: 0,
       userIsWoman: false,
       router: useRouter(),
+      selectedOption: "",
     };
   },
   methods: {
@@ -249,10 +267,10 @@ export default {
       this.countOpenFab = this.countOpenFab + 1;
       if ($(".is-visible").is(":hidden") && this.countOpenFab === 1) {
         // show greeting only at the first time
-        let transcriptGreeting = `Selamat datang di halaman perceraian. Terima kasih telah menghubungi kami. <br>
+        let transcriptGreeting = `Selamat datang di Halaman Gugatan Mandiri. Terima kasih telah menghubungi kami. <br>
         <ul>
-           <li>Untuk melanjutkan perkara perceraian, ucapkan <b>perceraian</b>.</li>
-           <li>Untuk mengakses halaman home, ucapkan <b>home</b>.</li>
+           <li>Untuk melanjutkan perkara gugatan mandiri, ucapkan <b>gugatan mandiri</b>.</li>
+           <li>Untuk mengakses Halaman Utama, ucapkan <b>halaman utama</b>.</li>
            <li>Untuk mengakses halaman syarat-syarat berperkara, ucapkan <b>syarat-syarat berperkara</b>.</li>
         </ul>
         Silahkan tentukan pilihan Anda!`;
@@ -373,7 +391,7 @@ export default {
         `<div class="chat-default" style="width: 80%; margin-left: 5px; text-align: left;"></div>`
       ); // add new element inside chat_body
       $(`.chat-default`).append(
-        "<img class='direct-chat-img' src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z'/>"
+        `<img class="direct-chat-img" src='${this.publicPath}pp-anya.png'>`
       );
       $(`.chat-default`).append(
         `<div class="direct-chat-text greeting">${words}</div>`
@@ -409,8 +427,8 @@ export default {
         this.transcription_.push(this.runtimeTranscription_);
 
         if (this.transcription_[0] !== "") {
-          if (this.transcription_[0] === "home") {
-            let transcript2 = `Mohon tunggu sebentar, kami akan mengantarkan Anda ke halaman home.`;
+          if (this.transcription_[0] === "halaman utama") {
+            let transcript2 = `Mohon tunggu sebentar, kami akan mengantarkan Anda ke Halaman Utama.`;
             this.showBotVoiceQuestion(transcript2);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript2);
@@ -419,7 +437,8 @@ export default {
             this.showBotVoiceQuestion(transcript1);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript1);
-          } else if (this.transcription_[0] === "perceraian") {
+          } else if (this.transcription_[0] === "gugatan Mandiri") {
+            this.selectedOption = "gugatan Mandiri";
             let startQuestion = this.questions[this.currentQuestion];
             this.showBotVoiceQuestion(startQuestion);
             this.showUserVoiceAsText(this.transcription_[0]);
@@ -428,28 +447,49 @@ export default {
 
           ////////////////////////////////////////////////////////////////////////////////////////
           else {
-            this.answers.push(this.transcription_[0]);
-            this.currentQuestion = this.currentQuestion + 1;
-            this.showUserVoiceAsText(this.transcription_[0]);
+            if (this.selectedOption === "gugatan Mandiri") {
+              this.currentQuestion = this.currentQuestion + 1;
+              this.showUserVoiceAsText(this.transcription_[0]);
 
-            if (
-              this.currentQuestion === 5 &&
-              this.transcription_[0] === "wanita"
-            ) {
-              this.questions.length = 26; // Skip all the questions start from index 27 to 28
-              this.userIsWoman = true;
-            }
+              if (
+                this.currentQuestion === 5 &&
+                this.transcription_[0] === "wanita"
+              ) {
+                this.questions.length = 26; // Skip all the questions start from index 27 to 28
+                this.userIsWoman = true;
+              }
 
-            // If the questions is end
-            if (this.questions[this.currentQuestion] === undefined) {
-              let transcript = "Terima kasih atas waktunya!";
-              this.showBotVoiceQuestion(transcript);
-              this.showBotVoiceAsText(transcript);
-              this.saveDataToDB();
+              // If the questions is end
+              if (this.questions[this.currentQuestion] === undefined) {
+                let transcript =
+                  "Terima kasih atas waktunya! Untuk mencetak data Anda, silahkan pergi ke halaman Narasi!";
+                this.showBotVoiceQuestion(transcript);
+                this.showBotVoiceAsText(transcript);
+                this.saveDataToDB();
+              } else {
+                if (this.transcription_[0] === "cukup") {
+                  let transcriptCukup = `Terima kasih atas waktunya! Untuk mencetak data Anda, silahkan pergi ke halaman Narasi!`;
+                  this.showBotVoiceQuestion(transcriptCukup);
+                  this.showBotVoiceAsText(transcriptCukup);
+                  this.saveDataToDB();
+                } else {
+                  // continue questions
+                  this.answers.push(this.transcription_[0]);
+                  this.showBotVoiceQuestion(
+                    this.questions[this.currentQuestion]
+                  );
+                  this.showBotVoiceAsText(this.questions[this.currentQuestion]);
+                }
+              }
             } else {
-              // continue questions
-              this.showBotVoiceQuestion(this.questions[this.currentQuestion]);
-              this.showBotVoiceAsText(this.questions[this.currentQuestion]);
+              this.synth.cancel();
+              this.botSpeech.text =
+                "Maaf, pilihan Anda tidak tersedia, silahkan pilih opsi lain!";
+              this.synth.speak(this.botSpeech);
+
+              this.botSpeech.onend = function () {
+                self.recognizeVoice();
+              };
             }
           }
         } else if (
@@ -530,7 +570,7 @@ export default {
         }' style="width: 80%; margin-left: 5px; text-align: left;"></div>`
       ); // add new element (direct-chat-msg) inside chat_body
       $(`.chat-default-${this.indexChatBot + 1}`).append(
-        "<img class='direct-chat-img' src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z'/>"
+        `<img class="direct-chat-img" src='${this.publicPath}pp-anya.png'>`
       );
       $(`.chat-default-${this.indexChatBot + 1}`).append(
         `<div class="direct-chat-text bot-voice">${transcript}</div>`
@@ -540,7 +580,7 @@ export default {
       div.scrollTop(div.prop("scrollHeight"));
     },
     goToTheCertainPage() {
-      if (this.transcription_[0] === "home") {
+      if (this.transcription_[0] === "halaman utama") {
         return this.router.push({
           name: "welcome",
         });
@@ -559,7 +599,8 @@ export default {
       const FormattedDate = `${date}-${month}-${year}`;
 
       let opening = `
-      Bulungan, ${FormattedDate} 
+      <body style="margin-left: 50px;margin-right: 50px;">
+      <p style="padding-top: 3pt;text-indent: 0pt;text-align: right;">Bulungan, ${FormattedDate}</p> 
       <br>
       <br>
       Kepada Yth. <br>
@@ -644,6 +685,7 @@ export default {
       <br>
       <br>
       ${this.answers[1]}
+      </body>
       `;
 
       let narration = "";
@@ -682,7 +724,7 @@ export default {
     //
   },
   mounted() {
-    $('.direct-chat-msg').remove();
+    $(".direct-chat-msg").remove();
     $(".icon-to-change").css({ color: "" });
     this.toggleFab();
   },

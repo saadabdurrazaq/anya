@@ -9,11 +9,20 @@
               <div class="col-md-12">
                 <div style="text-align: center; margin-top: 20%">
                   <!-- error warning -->
-                  <div id="errMsg" style="display:none" class="box no-border errMsg">
+                  <div
+                    id="errMsg"
+                    style="display: none"
+                    class="box no-border errMsg"
+                  >
                     <div class="box-tools">
                       <p class="alert alert-warning alert-dismissible">
                         Narasi tidak tersedia. Silahkan lakukan rekaman terlebih
-                        dahulu!
+                        dahulu
+                        <a
+                          style="color: blue"
+                          href="https://hai.pa-tulungagung.go.id/user/perceraian"
+                          >di sini</a
+                        >!
                         <button
                           type="button"
                           @click.prevent="closeMsg"
@@ -33,6 +42,15 @@
                     v-model="form.narration"
                     :config="editorConfig"
                   ></ckeditor>
+                  <button
+                    style="float: right; margin-top: 10px"
+                    type="button"
+                    @click.stop.prevent="downloadPDF()"
+                    class="btn btn-success"
+                    :disabled="form.narration === null"
+                  >
+                    Generate PDF
+                  </button>
                 </div>
               </div>
             </div>
@@ -49,7 +67,8 @@ const $ = jQuery;
 window.$ = $;
 import Nav from "./partials/Nav.vue";
 import { Form } from "vform";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ClassicEditor from "@/assets/js/ckeditor5"; // this using ckeditor custom builder stored in \public\assets\js 
 
 export default {
   beforeCreate: function () {
@@ -63,6 +82,25 @@ export default {
       editor: ClassicEditor,
       editorConfig: {
         // The configuration of the editor.
+        stylesheets: ["EDITOR_STYLES"],
+        cloudServices: {
+          tokenUrl:
+            "https://88843.cke-cs.com/token/dev/55b5dfec08473918fce4d1e3101ebd14cf473e576891811ce87da578e8cb?limit=10", // https://dashboard.ckeditor.com/organization/88843/trials/16411/manage#/environments
+        },
+        exportPdf: {
+          licenseKey:
+            "IS1a2nak3bSrHJHIBelVVLTJKibNq4eVDP+/JVtFVGep2MV6oxq20kFJ8g==", // https://dashboard.ckeditor.com/organization/88843/trials/16411
+          fileName: "my-file.pdf",
+          converterOptions: {
+            format: "A4",
+            margin_top: "20mm",
+            margin_bottom: "20mm",
+            margin_right: "12mm",
+            margin_left: "12mm",
+            page_orientation: "portrait",
+            footer_html: undefined,
+          },
+        },
       },
       form: new Form({
         narration: "",
@@ -70,9 +108,6 @@ export default {
     };
   },
   methods: {
-    loadData() {
-      this.form.narration = localStorage.getItem("narration");
-    },
     showMsg() {
       if (this.form.narration === null) {
         $("#errMsg").show("fast");
@@ -81,9 +116,21 @@ export default {
     closeMsg() {
       $("#errMsg").hide("slow");
     },
+    loadData() {
+      this.form.narration = localStorage.getItem("narration");
+    },
+    downloadPDF() {
+      var printWindow = window.open("", "", "height=400,width=800");
+      printWindow.document.write("<html><head><title>Pengadilan Agama Tulungagung</title>");
+      printWindow.document.write("</head><body >");
+      printWindow.document.write(this.form.narration);
+      printWindow.document.write("</body></html>");
+      printWindow.document.close();
+      printWindow.print();
+    },
   },
   created() {
-   this.loadData();
+    this.loadData();
   },
   mounted() {
     this.showMsg();

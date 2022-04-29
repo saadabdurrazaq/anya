@@ -3,11 +3,13 @@
   <div class="wrapper">
     <div>
       <div class="content-header">
-        <div class="content">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-md-7">
-                <div style="text-align: center; margin-top: 20%">
+        <div>
+          <div class="row">
+            <div class="col-md-3" style="margin-right:40px;">
+              <img style="margin-left:15px;width: 100%;height: auto;" :src="`${publicPath}sidebar-left.png`" />
+            </div>
+            <div class="col-md-7">
+                <div style="text-align: center; position: absolute; top:30%; bottom: 0;left: 0;right: 0; width: 90%">
                   <h2>Selamat datang di PA Tulungagung</h2>
                   <br />
                   <h3>
@@ -16,21 +18,19 @@
                     >
                     |
                     <router-link :to="{ name: 'perceraian' }" href="#"
-                      >Perceraian</router-link
+                      >Gugatan Mandiri</router-link
                     >
                   </h3>
                 </div>
                 <!-- chat box -->
                 <div
                   class="card card-danger direct-chat direct-chat-danger chat"
-                  style="display: none; bottom: 30%; width: 100%"
+                  style="display:none; top:10%; width: 90%;margin-bottom:100px;"
                 >
                   <div class="card-header">
                     <div class="chat_option">
                       <div class="header_img">
-                        <img
-                          src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z"
-                        />
+                        <img :src="`${publicPath}pp-anya.png`" />
                       </div>
                       <span id="chat_head">ANYA</span> <br />
                       <span class="agent">Pengadilan Agama Tulungagung</span>
@@ -55,7 +55,12 @@
                   <div class="chat_body" id="msgs">
                     <div
                       v-if="loader"
-                      style="position: absolute; top: 40%; left: 40%; z-index: 1;"
+                      style="
+                        position: absolute;
+                        top: 40%;
+                        left: 40%;
+                        z-index: 1;
+                      "
                     >
                       <div class="lds-facebook">
                         <div></div>
@@ -128,12 +133,15 @@
                     title="Petunjuk sedang dibacakan, mohon tunggu terlebih dahulu sampai selesai!"
                   ></span>
                   <div class="fab_field">
-                    <a
+                    <button
                       id="fab_send"
+                      type="button"
                       @click.stop.prevent="microphoneClick()"
                       class="fab"
-                      ><i class="fa fa-microphone icon-to-change"></i
-                    ></a>
+                      :disabled="loader === true"
+                    >
+                      <i class="fa fa-microphone icon-to-change"></i>
+                    </button>
                     <textarea
                       id="chatSend"
                       name="chat_message"
@@ -145,7 +153,12 @@
                   </div>
                 </div>
                 <!-- end chat box -->
-              </div>
+            </div>
+            <div
+              class="col-md-1"
+              style="margin-bottom:10px;"
+            >
+              <img style="min-height:85vh;width:120%;max-width: 400px;height: auto;" :src="`${publicPath}anya.png`" />
             </div>
           </div>
         </div>
@@ -162,7 +175,7 @@ import striptags from "striptags";
 import Nav from "./partials/Nav.vue";
 import swal from "sweetalert2";
 import { useRouter } from "vue-router";
-import '@/assets/css/custom.css';
+import "@/assets/css/custom.css";
 
 export default {
   beforeCreate: function () {
@@ -173,6 +186,7 @@ export default {
   },
   data() {
     return {
+      publicPath: process.env.BASE_URL,
       staffData: "",
       runtimeTranscription_: "",
       transcription_: [],
@@ -238,6 +252,7 @@ export default {
       } else {
         // if user close the chat, stop window.speechSynthesis(synth.cancel()) and also stop SpeechRecognition()(const recognition)
         this.synth.cancel();
+        this.greeting();
       }
     },
     hideChat(hide) {
@@ -335,7 +350,7 @@ export default {
       Terima kasih telah menghubungi kami. Menu apa yang ingin Anda akses? <br>
       - <b>Syarat Berperkara.</b> <br>
          atau <br>
-      - <b>Perceraian</b> ? <br>
+      - <b>Gugatan Mandiri</b> ? <br>
       Silahkan tentukan pilihan Anda!`;
       this.botSpeech.text = striptags(transcriptGreeting);
       let voices = window.speechSynthesis.getVoices();
@@ -347,7 +362,8 @@ export default {
 
       var self = this;
       this.botSpeech.onstart = function () {
-        self.loader = false; 
+        self.loader = false;
+        $(".fab").css("cursor", "pointer");
       };
 
       if (this.botSpeech.onend) {
@@ -363,7 +379,7 @@ export default {
         '<div class="chat-default" style="width: 80%; margin-left: 5px; text-align: left;"></div>'
       ); // add new element above inside chat_body
       $(".chat-default").append(
-        "<img class='direct-chat-img' src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z'/>"
+        `<img class="direct-chat-img" src='${this.publicPath}pp-anya.png'>`
       );
       $(".chat-default").append(
         '<div class="direct-chat-text greeting"></div>'
@@ -416,7 +432,7 @@ export default {
 
           if (
             this.transcription_[0] !== "syarat berperkara" &&
-            this.transcription_[0] !== "perceraian"
+            this.transcription_[0] !== "gugatan Mandiri"
           ) {
             // required for record voice automatically
             this.synth.cancel();
@@ -434,8 +450,8 @@ export default {
             this.showBotVoice(transcript1);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript1);
-          } else if (this.transcription_[0] === "perceraian") {
-            let transcript2 = `Mohon tunggu sebentar, kami akan mengantarkan Anda ke halaman perceraian.`;
+          } else if (this.transcription_[0] === "gugatan Mandiri") {
+            let transcript2 = `Mohon tunggu sebentar, kami akan mengantarkan Anda ke Halaman Gugatan mandiri.`;
             this.showBotVoice(transcript2);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript2);
@@ -517,7 +533,7 @@ export default {
         }' style="width: 80%; margin-left: 5px; text-align: left;"></div>`
       ); // add new element (direct-chat-msg) inside chat_body
       $(`.chat-default-${this.indexChatBot + 1}`).append(
-        "<img class='direct-chat-img' src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIADwAPAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgn/2gAIAQEAAAAA+lYAj8cy5ndHO8VNN0IFrk62gjEYudH9iLQPN6lec+0VmtG038L9UpWh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAD/xAAuEAABAwMACAUEAwAAAAAAAAABAgMEAAURBhASEyAhQVEiMmKRwSNxcoExQqH/2gAIAQEAAT8A14PHdbuuMvcMY2wPGs88Z6ClT5qzlUh0n8qjXmawoFay8jqlfwaZebkNIdbOUrGRwCpxJmySf53qtdgJNu+zq+G7N7u4yPUoK9xrsyC3bWfUVL9zw6QxiS1IA5Y2F/Gpplb7qGkeZasCkNpabQhPlQkJH64CMDJ5DvWkk+Gu3uRm3wp5ak42Dkp2TnJNC4S2hhyPvT0Wg4z9xVqmuN3SNJl/TabUcITzxkY2j3piRHkjLLrbg9Ks1gjVL0nnvLVuAllHTllf7Jp+VKknLz7jn5K+KAAGNY8JykkHuDg0xe7rG5JkqUB/VY2x/tR9LkBvEmMsud2/KfeumrtXSu9dKFZNf//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AB//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AB//Z'/>"
+        `<img class="direct-chat-img" src='${this.publicPath}pp-anya.png'>`
       );
       $(`.chat-default-${this.indexChatBot + 1}`).append(
         `<div class="direct-chat-text bot-voice">${transcript}</div>`
@@ -668,7 +684,7 @@ ul li {
   color: #f0f0f0;
   margin: 25px auto 0;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
-  cursor: pointer;
+  cursor: not-allowed;
   -webkit-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out;
   position: relative;

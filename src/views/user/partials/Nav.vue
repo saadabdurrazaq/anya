@@ -15,36 +15,27 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <router-link
-                            :to="{ name: 'welcome' }"
-                            class="nav-link"
-                            href="#"
-                            >Home</router-link
-                          >
+          <router-link :to="{ name: 'welcome' }" class="nav-link" href="#"
+            >Home</router-link
+          >
         </li>
         <li class="nav-item">
           <router-link
-                            :to="{ name: 'syarat-berperkara' }"
-                            class="nav-link"
-                            href="#"
-                            >Syarat Berperkara</router-link
-                          >
+            :to="{ name: 'syarat-berperkara' }"
+            class="nav-link"
+            href="#"
+            >Syarat Berperkara</router-link
+          >
         </li>
         <li class="nav-item">
-          <router-link
-                            :to="{ name: 'perceraian' }"
-                            class="nav-link"
-                            href="#"
-                            >Perceraian</router-link
-                          >
+          <router-link :to="{ name: 'perceraian' }" class="nav-link" href="#"
+            >Gugatan Mandiri</router-link
+          >
         </li>
         <li class="nav-item">
-          <router-link
-                            :to="{ name: 'narasi' }"
-                            class="nav-link"
-                            href="#"
-                            >Narasi</router-link
-                          >
+          <router-link :to="{ name: 'narasi' }" class="nav-link" href="#"
+            >Narasi</router-link
+          >
         </li>
       </ul>
     </div>
@@ -62,19 +53,11 @@ export default {
     };
   },
   methods: {
-    
-    showData() {
-      
-    },
+    showData() {},
   },
-  computed: {
-   
-  },
-  watch: {
-   
-  },
-  created() {
-  },
+  computed: {},
+  watch: {},
+  created() {},
   mounted() {},
 };
 </script>
