@@ -67,8 +67,8 @@ const $ = jQuery;
 window.$ = $;
 import Nav from "./partials/Nav.vue";
 import { Form } from "vform";
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import ClassicEditor from "@/assets/js/ckeditor5"; // this using ckeditor custom builder stored in \public\assets\js 
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import ClassicEditor from "@/assets/js/ckeditor5"; // this using ckeditor custom builder stored in \public\assets\js 
 
 export default {
   beforeCreate: function () {
@@ -82,25 +82,25 @@ export default {
       editor: ClassicEditor,
       editorConfig: {
         // The configuration of the editor.
-        stylesheets: ["EDITOR_STYLES"],
-        cloudServices: {
-          tokenUrl:
-            "https://88843.cke-cs.com/token/dev/55b5dfec08473918fce4d1e3101ebd14cf473e576891811ce87da578e8cb?limit=10", // https://dashboard.ckeditor.com/organization/88843/trials/16411/manage#/environments
-        },
-        exportPdf: {
-          licenseKey:
-            "IS1a2nak3bSrHJHIBelVVLTJKibNq4eVDP+/JVtFVGep2MV6oxq20kFJ8g==", // https://dashboard.ckeditor.com/organization/88843/trials/16411
-          fileName: "my-file.pdf",
-          converterOptions: {
-            format: "A4",
-            margin_top: "20mm",
-            margin_bottom: "20mm",
-            margin_right: "12mm",
-            margin_left: "12mm",
-            page_orientation: "portrait",
-            footer_html: undefined,
-          },
-        },
+        // stylesheets: ["EDITOR_STYLES"],
+        // cloudServices: {
+        //   tokenUrl:
+        //     "https://88843.cke-cs.com/token/dev/55b5dfec08473918fce4d1e3101ebd14cf473e576891811ce87da578e8cb?limit=10", // https://dashboard.ckeditor.com/organization/88843/trials/16411/manage#/environments
+        // },
+        // exportPdf: {
+        //   licenseKey:
+        //     "IS1a2nak3bSrHJHIBelVVLTJKibNq4eVDP+/JVtFVGep2MV6oxq20kFJ8g==", // https://dashboard.ckeditor.com/organization/88843/trials/16411
+        //   fileName: "my-file.pdf",
+        //   converterOptions: {
+        //     format: "A4",
+        //     margin_top: "20mm",
+        //     margin_bottom: "20mm",
+        //     margin_right: "12mm",
+        //     margin_left: "12mm",
+        //     page_orientation: "portrait",
+        //     footer_html: undefined,
+        //   },
+        // },
       },
       form: new Form({
         narration: "",
