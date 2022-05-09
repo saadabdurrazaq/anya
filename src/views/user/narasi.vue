@@ -7,7 +7,7 @@
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-md-12">
-                <div style="text-align: center; margin-top: 20%">
+                <div style="text-align: center; margin-top: 5%">
                   <!-- error warning -->
                   <div
                     id="errMsg"
@@ -16,11 +16,11 @@
                   >
                     <div class="box-tools">
                       <p class="alert alert-warning alert-dismissible">
-                        Narasi tidak tersedia. Silahkan lakukan rekaman terlebih
+                        Narasi tidak tersedia. Silahkan lakukan percakapan terlebih
                         dahulu
                         <a
                           style="color: blue"
-                          href="https://hai.pa-tulungagung.go.id/user/perceraian"
+                          href="https://anya.pa-tulungagung.go.id/user/perceraian"
                           >di sini</a
                         >!
                         <button
@@ -42,6 +42,15 @@
                     v-model="form.narration"
                     :config="editorConfig"
                   ></ckeditor>
+                  <button
+                    style="float: right; margin-top: 10px; margin-left:10px;"
+                    type="button"
+                    @click.stop.prevent="downloadDocFile()"
+                    class="btn btn-success"
+                    :disabled="form.narration === null"
+                  >
+                    Generate Doc File
+                  </button>
                   <button
                     style="float: right; margin-top: 10px"
                     type="button"
@@ -128,6 +137,15 @@ export default {
       printWindow.document.close();
       printWindow.print();
     },
+    downloadDocFile() { 
+       var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(this.form.narration);
+       var fileDownload = document.createElement("a");
+       document.body.appendChild(fileDownload);
+       fileDownload.href = source;
+       fileDownload.download = 'document.doc';
+       fileDownload.click();
+       document.body.removeChild(fileDownload);
+    }
   },
   created() {
     this.loadData();

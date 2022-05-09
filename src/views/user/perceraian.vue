@@ -594,13 +594,14 @@ export default {
     },
     saveDataToDB() {
       let date = new Date().toLocaleDateString("en-us", { day: "numeric" });
-      let month = new Date().toLocaleDateString("en-us", { month: "long" });
+      let month = new Date().toLocaleDateString("id-ID", { month: "long" });
       let year = new Date().toLocaleDateString("en-us", { year: "numeric" });
       const FormattedDate = `${date}-${month}-${year}`;
 
+      // for pdf file: margin-left: 3cm;margin-right: 2cm; margin-top:2cm; margin-bottom:3cm; 
       let opening = `
-      <body style="margin-left: 50px;margin-right: 50px;">
-      <p style="padding-top: 3pt;text-indent: 0pt;text-align: right;">Bulungan, ${FormattedDate}</p> 
+      <body style="margin-left: 1.5cm;margin-right: 2cm; margin-bottom:3cm; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+      <p style="text-indent: 0pt;text-align: right;">${this.answers[0] === undefined ? '_____' : this.answers[0]}, ${FormattedDate}</p> 
       <br>
       <br>
       Kepada Yth. <br>
@@ -649,13 +650,12 @@ export default {
 
       let mainProblems = `
       TENTANG PERMASALAHANNYA <br>
-      <br>
       <ol>
       <li>Bahwa pada tanggal ${this.answers[17] === undefined ? '_____' : this.answers[17]}, Pemohon dan Termohon telah melangsungkan pernikahan yang dicatat oleh Pegawai Pencatat Nikah di ${this.answers[18] === undefined ? '_____' : this.answers[18]}, sebagaimana sesuai dengan Kutipan Akta Nikah Nomor : ${this.answers[19] === undefined ? '_____' : this.answers[19]}, tertanggal ${this.answers[20] === undefined ? '_____' : this.answers[20]};</li>
       <li>Bahwa setelah menikah, Pemohon ${this.answers[21] === undefined ? '_____' : this.answers[21]} dan ${this.answers[22] === undefined ? '_____' : this.answers[22]};</li>
-      <li> - Bahwa sejak ${this.answers[23] === undefined ? '_____' : this.answers[23]} keadaan rumah tangga Pemohon dan Termohon mulai tidak harmonis disebabkan karena ${this.answers[24] === undefined ? '_____' : this.answers[24]}<br>
-         - Bahwa puncak perselisihan dan pertengkaran terjadi pada ${this.answers[25] === undefined ? '_____' : this.answers[25]};<br>
-         - Bahwa pihak keluarga ${this.answers[26] === undefined ? '_____' : this.answers[26]} berusaha mendamaikan, dan Penggugat tetap pada prinsip untuk bercerai karena Tergugat sudah tidak mempunyai i’tikad baik lagi untuk menjalankan kehidupan rumah tangga.</li><br>
+      <li>Bahwa sejak ${this.answers[23] === undefined ? '_____' : this.answers[23]} keadaan rumah tangga Pemohon dan Termohon mulai tidak harmonis disebabkan karena ${this.answers[24] === undefined ? '_____' : this.answers[24]}<br>
+          Bahwa puncak perselisihan dan pertengkaran terjadi pada ${this.answers[25] === undefined ? '_____' : this.answers[25]};<br>
+          Bahwa pihak keluarga ${this.answers[26] === undefined ? '_____' : this.answers[26]} berusaha mendamaikan, dan Penggugat tetap pada prinsip untuk bercerai karena Tergugat sudah tidak mempunyai i’tikad baik lagi untuk menjalankan kehidupan rumah tangga.</li>
       <li> Bahwa berdasarkan dalil-dalil di atas, telah cukup alasan bagi Pemohon untuk mengajukan Permohonan ini sebagaimana dimaksud dalam Pasal 19 Peraturan Pemerintah No. 9 Tahun 1975, dan untuk itu Pemohon memohon kepada Ketua Pengadilan Agama ${this.answers[0] === undefined ? '_____' : this.answers[0]} kiranya berkenan menerima dan memeriksa perkara ini;</li>
       <li> Bahwa Pemohon sanggup membayar biaya yang timbul dalam perkara ini;</li>
       `;
@@ -682,6 +682,7 @@ export default {
       Wassalamu'alaikum Wr. Wb. <br>
       <br>
       Hormat Penggugat, <br>
+      <br>
       <br>
       <br>
       ${this.answers[1] === undefined ? '_____' : this.answers[1]}

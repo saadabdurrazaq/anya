@@ -552,7 +552,7 @@ export default {
         //   name: "perceraian",
         // });
         window.location.replace(
-          "https://hai.pa-tulungagung.go.id/user/perceraian"
+          "https://anya.pa-tulungagung.go.id/user/perceraian"
         );
       }
     },
