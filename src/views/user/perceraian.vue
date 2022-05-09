@@ -604,8 +604,8 @@ export default {
       <br>
       <br>
       Kepada Yth. <br>
-      Ketua Pengadilan Agama ${this.answers[0]} <br>
-      Di ${this.answers[0]}. <br>
+      Ketua Pengadilan Agama ${this.answers[0] === undefined ? '_____' : this.answers[0]} <br>
+      Di ${this.answers[0] === undefined ? '_____' : this.answers[0]}. <br>
       <br>
       Assalamu'alaikum Wr. Wb.<br>
       <br>
@@ -613,15 +613,15 @@ export default {
 
       let penggugat = `
       Yang bertanda tangan di bawah ini: <br>
-      Nama : ${this.answers[1]} <br>
-      NIK : ${this.answers[2]} <br>
-      Umur : ${this.answers[3]} Tahun <br>
-      Agama : ${this.answers[5]} <br>
-      Pendidikan :${this.answers[6]} <br>
-      Pekerjaan : ${this.answers[7]} <br>
-      Tempat tinggal : ${this.answers[8]} <br>
-      No. Telp : ${this.answers[9]} <br>
-      Email : ${this.answers[10]}  <br>
+      Nama : ${this.answers[1] === undefined ? '_____' : this.answers[1]} <br>
+      NIK : ${this.answers[2] === undefined ? '_____' : this.answers[2]} <br>
+      Umur : ${this.answers[3] === undefined ? '_____' : this.answers[3]} Tahun <br>
+      Agama : ${this.answers[5] === undefined ? '_____' : this.answers[5]} <br>
+      Pendidikan :${this.answers[6] === undefined ? '_____' : this.answers[6]} <br>
+      Pekerjaan : ${this.answers[7] === undefined ? '_____' : this.answers[7]} <br>
+      Tempat tinggal : ${this.answers[8] === undefined ? '_____' : this.answers[8]} <br>
+      No. Telp : ${this.answers[9] === undefined ? '_____' : this.answers[9]} <br>
+      Email : ${this.answers[10] === undefined ? '_____' : this.answers[10]}  <br>
       <br>
       Selanjutnya disebut Penggugat. <br>
       <br>
@@ -636,12 +636,12 @@ export default {
       `;
 
       let tergugat = `
-      Nama : ${this.answers[11]} <br>
-      Umur : ${this.answers[12]} Tahun <br>
-      Agama : ${this.answers[13]} <br>
-      Pendidikan : ${this.answers[14]} <br>
-      Pekerjaan : ${this.answers[15]} <br>
-      Tempat tinggal : ${this.answers[16]} <br>
+      Nama : ${this.answers[11] === undefined ? '_____' : this.answers[11]} <br>
+      Umur : ${this.answers[12] === undefined ? '_____' : this.answers[12]} Tahun <br>
+      Agama : ${this.answers[13] === undefined ? '_____' : this.answers[13]} <br>
+      Pendidikan : ${this.answers[14] === undefined ? '_____' : this.answers[14]} <br>
+      Pekerjaan : ${this.answers[15] === undefined ? '_____' : this.answers[15]} <br>
+      Tempat tinggal : ${this.answers[16] === undefined ? '_____' : this.answers[16]} <br>
       <br>
       Selanjutnya disebut Tergugat. <br>
       <br>
@@ -651,24 +651,24 @@ export default {
       TENTANG PERMASALAHANNYA <br>
       <br>
       <ol>
-      <li>Bahwa pada tanggal ${this.answers[17]}, Pemohon dan Termohon telah melangsungkan pernikahan yang dicatat oleh Pegawai Pencatat Nikah di ${this.answers[18]}, sebagaimana sesuai dengan Kutipan Akta Nikah Nomor : ${this.answers[19]}, tertanggal ${this.answers[20]};</li>
-      <li>Bahwa setelah menikah, Pemohon ${this.answers[21]} dan ${this.answers[22]};</li>
-      <li> - Bahwa sejak ${this.answers[23]} keadaan rumah tangga Pemohon dan Termohon mulai tidak harmonis disebabkan karena ${this.answers[24]}<br>
-         - Bahwa puncak perselisihan dan pertengkaran terjadi pada ${this.answers[25]};<br>
-         - Bahwa pihak keluarga ${this.answers[26]} berusaha mendamaikan, dan Penggugat tetap pada prinsip untuk bercerai karena Tergugat sudah tidak mempunyai i’tikad baik lagi untuk menjalankan kehidupan rumah tangga.</li><br>
-      <li> Bahwa berdasarkan dalil-dalil di atas, telah cukup alasan bagi Pemohon untuk mengajukan Permohonan ini sebagaimana dimaksud dalam Pasal 19 Peraturan Pemerintah No. 9 Tahun 1975, dan untuk itu Pemohon memohon kepada Ketua Pengadilan Agama ${this.answers[0]} kiranya berkenan menerima dan memeriksa perkara ini;</li>
+      <li>Bahwa pada tanggal ${this.answers[17] === undefined ? '_____' : this.answers[17]}, Pemohon dan Termohon telah melangsungkan pernikahan yang dicatat oleh Pegawai Pencatat Nikah di ${this.answers[18] === undefined ? '_____' : this.answers[18]}, sebagaimana sesuai dengan Kutipan Akta Nikah Nomor : ${this.answers[19] === undefined ? '_____' : this.answers[19]}, tertanggal ${this.answers[20] === undefined ? '_____' : this.answers[20]};</li>
+      <li>Bahwa setelah menikah, Pemohon ${this.answers[21] === undefined ? '_____' : this.answers[21]} dan ${this.answers[22] === undefined ? '_____' : this.answers[22]};</li>
+      <li> - Bahwa sejak ${this.answers[23] === undefined ? '_____' : this.answers[23]} keadaan rumah tangga Pemohon dan Termohon mulai tidak harmonis disebabkan karena ${this.answers[24] === undefined ? '_____' : this.answers[24]}<br>
+         - Bahwa puncak perselisihan dan pertengkaran terjadi pada ${this.answers[25] === undefined ? '_____' : this.answers[25]};<br>
+         - Bahwa pihak keluarga ${this.answers[26] === undefined ? '_____' : this.answers[26]} berusaha mendamaikan, dan Penggugat tetap pada prinsip untuk bercerai karena Tergugat sudah tidak mempunyai i’tikad baik lagi untuk menjalankan kehidupan rumah tangga.</li><br>
+      <li> Bahwa berdasarkan dalil-dalil di atas, telah cukup alasan bagi Pemohon untuk mengajukan Permohonan ini sebagaimana dimaksud dalam Pasal 19 Peraturan Pemerintah No. 9 Tahun 1975, dan untuk itu Pemohon memohon kepada Ketua Pengadilan Agama ${this.answers[0] === undefined ? '_____' : this.answers[0]} kiranya berkenan menerima dan memeriksa perkara ini;</li>
       <li> Bahwa Pemohon sanggup membayar biaya yang timbul dalam perkara ini;</li>
       `;
 
       let manProblems = `
-      <li> Bahwa Termohon yang ditalak wajib menjalani masa iddah sesuai dengan ketentuan syara’, karenanya Pemohon bersedia memberi nafkah kepada Termohon selama masa iddah sejumlah Rp. ${this.answers[27]} serta mut’ah sebagai penghibur bagi Termohon sejumlah Rp. ${this.answers[28]};</li>
+      <li> Bahwa Termohon yang ditalak wajib menjalani masa iddah sesuai dengan ketentuan syara’, karenanya Pemohon bersedia memberi nafkah kepada Termohon selama masa iddah sejumlah Rp. ${this.answers[27] === undefined ? '_____' : this.answers[27]} serta mut’ah sebagai penghibur bagi Termohon sejumlah Rp. ${this.answers[28] === undefined ? '_____' : this.answers[28]};</li>
       </ol>
       <br>
       Berdasarkan alasan-alasan tersebut di atas, Penggugat memohon kepada Majelis Hakim untuk menjatuhkan putusan yang amarnya berbunyi sebagai berikut:
       Primer. <br>
       <ol>
       <li> Mengabulkan Gugatan Penggugat seluruhnya;</li>
-      <li> Menjatuhkan talak satu ba'in shughra Tergugat (${this.answers[11]}) terhadap Penggugat (${this.answers[1]});</li>
+      <li> Menjatuhkan talak satu ba'in shughra Tergugat (${this.answers[11] === undefined ? '_____' : this.answers[11]}) terhadap Penggugat (${this.answers[1] === undefined ? '_____' : this.answers[1]});</li>
       <li> Membebankan biaya perkara ini sesuai peraturan yang berlaku;</li>
       </ol>
       `;
@@ -684,7 +684,7 @@ export default {
       Hormat Penggugat, <br>
       <br>
       <br>
-      ${this.answers[1]}
+      ${this.answers[1] === undefined ? '_____' : this.answers[1]}
       </body>
       `;
 
