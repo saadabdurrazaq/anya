@@ -48,6 +48,7 @@
                     @click.stop.prevent="downloadDocFile()"
                     class="btn btn-success"
                     :disabled="form.narration === null"
+                    id="loadingButton"
                   >
                     Generate Doc File
                   </button>
@@ -126,6 +127,7 @@ export default {
       $("#errMsg").hide("slow");
     },
     loadData() {
+      window.speechSynthesis.cancel();
       this.form.narration = localStorage.getItem("narration");
     },
     downloadPDF() {
@@ -138,7 +140,12 @@ export default {
       printWindow.print();
     },
     downloadDocFile() { 
-       var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(this.form.narration);
+      let narration = `
+            <body style="margin-left: 1.5cm;margin-right: 2cm; margin-bottom:3cm; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+            ${this.form.narration}
+            </body>
+      `;
+       var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(narration);
        var fileDownload = document.createElement("a");
        document.body.appendChild(fileDownload);
        fileDownload.href = source;

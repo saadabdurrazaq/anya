@@ -268,7 +268,7 @@ export default {
       if (this.placeholderValue === "Send a voice!") {
         this.synth.cancel(); // stop current bot speaking.
         this.isClicked = true;
-        this.placeholderValue = "Listening... Please wait!";
+        this.placeholderValue = "ANYA is listening... Please speak!";
         $("#fab_send").css({ "background-color": "#42A5F5" });
         $(".icon-to-change").css({ color: "white" });
         this.recognizeVoice();
@@ -383,16 +383,16 @@ export default {
           this.botSpeech.voice = this.voiceList[11];
 
           if (
-            this.transcription_[0] !== "syarat pengajuan cerai gugat" &&
-            this.transcription_[0] !== "syarat pengajuan cerai talak" &&
-            this.transcription_[0] !== "syarat gugatan harta bersama" &&
-            this.transcription_[0] !== "syarat gugatan waris" &&
-            this.transcription_[0] !== "syarat dispensasi kawin" &&
-            this.transcription_[0] !== "syarat perwalian" &&
-            this.transcription_[0] !== "syarat izin poligami" &&
-            this.transcription_[0] !== "syarat penetapan ahli waris" &&
-            this.transcription_[0] !== "syarat isbat nikah" &&
-            this.transcription_[0] !== "syarat pengangkatan anak" &&
+            this.transcription_[0] !== "cerai gugat" &&
+            this.transcription_[0] !== "cerai talak" &&
+            this.transcription_[0] !== "harta bersama" &&
+            this.transcription_[0] !== "waris" &&
+            this.transcription_[0] !== "dispensasi kawin" &&
+            this.transcription_[0] !== "perwalian" &&
+            this.transcription_[0] !== "izin poligami" &&
+            this.transcription_[0] !== "penetapan ahli waris" &&
+            this.transcription_[0] !== "isbat nikah" &&
+            this.transcription_[0] !== "pengangkatan anak" &&
             this.transcription_[0] !== "syarat-syarat berperkara" &&
             this.transcription_[0] !== "halaman utama" &&
             this.transcription_[0] !== "gugatan Mandiri"
@@ -417,6 +417,7 @@ export default {
             // };
 
             // required for record voice automatically
+            this.placeholderValue = "ANYA is speaking... Please listen!";
             this.synth.cancel();
             this.botSpeech.text =
               "Maaf, pilihan Anda tidak tersedia, silahkan pilih opsi lain!";
@@ -424,10 +425,11 @@ export default {
 
             this.botSpeech.onend = function () {
               self.recognizeVoice();
+              self.placeholderValue = "ANYA is listening... Please speak!";
             };
           }
 
-          if (this.transcription_[0] === "syarat pengajuan cerai talak") {
+          if (this.transcription_[0] === "cerai talak") {
             let transcript1 = `Berikut syarat-syarat pengajuan cerai talak: <br>
               1. Surat permohonan rangkap 4. <br>
               2. Fotokopi KTP asli pemohon. <br>
@@ -438,7 +440,7 @@ export default {
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript1);
           } else if (
-            this.transcription_[0] === "syarat pengajuan cerai gugat"
+            this.transcription_[0] === "cerai gugat"
           ) {
             let transcript2 = `Berikut syarat-syarat pengajuan cerai gugat: <br>
               1. Surat gugatan rangkap 4. <br>
@@ -450,7 +452,7 @@ export default {
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript2);
           } else if (
-            this.transcription_[0] === "syarat gugatan harta bersama"
+            this.transcription_[0] === "harta bersama"
           ) {
             let transcript3 = `Berikut syarat-syarat gugatan harta bersama: <br>
               1. Surat gugatan rangkap sesuai dengan jumlah para pihak. <br>
@@ -461,7 +463,7 @@ export default {
             this.showBotVoice(transcript3);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript3);
-          } else if (this.transcription_[0] === "syarat gugatan waris") {
+          } else if (this.transcription_[0] === "waris") {
             let transcript4 = `Berikut syarat-syarat gugatan waris: <br>
             1. Surat gugatan rangkap sesuai dengan jumlah para pihak. <br>
             2. Membayar panjar biaya perkara.`;
@@ -469,7 +471,7 @@ export default {
             this.showBotVoice(transcript4);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript4);
-          } else if (this.transcription_[0] === "syarat dispensasi kawin") {
+          } else if (this.transcription_[0] === "dispensasi kawin") {
             let transcript5 = `Berikut syarat-syarat dispensasi kawin: <br>
             1. N-P/Penolakan KUA. <br>
             2. KTP pemohon. <br>
@@ -482,7 +484,7 @@ export default {
             this.showBotVoice(transcript5);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript5);
-          } else if (this.transcription_[0] === "syarat perwalian") {
+          } else if (this.transcription_[0] === "perwalian") {
             let transcript6 = `Berikut syarat-syarat perwalian: <br>
             1. Fotocopy surat nikah. <br> 
             2. Fotocopy akta kelahiran anak. <br>
@@ -492,7 +494,7 @@ export default {
             this.showBotVoice(transcript6);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript6);
-          } else if (this.transcription_[0] === "syarat izin poligami") {
+          } else if (this.transcription_[0] === "izin poligami") {
             let transcript7 = `Berikut syarat-syarat izin poligami: <br>
             1. Surat permohonan rangkap 4. <br>
             2. Fotocopy KTP pemohon dan calon istri beserta istri pertama. <br>
@@ -510,7 +512,7 @@ export default {
             this.showBotVoice(transcript7);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript7);
-          } else if (this.transcription_[0] === "syarat penetapan ahli waris") {
+          } else if (this.transcription_[0] === "penetapan ahli waris") {
             let transcript8 = `Berikut syarat-syarat penetapan ahli waris: <br>
             1. Surat permohonan rangkap 4. <br>
             2. Fotocopy KTP pemohon / para pemohon. <br>
@@ -525,7 +527,7 @@ export default {
             this.showBotVoice(transcript8);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript8);
-          } else if (this.transcription_[0] === "syarat isbat nikah") {
+          } else if (this.transcription_[0] === "isbat nikah") {
             let transcript9 = `Berikut syarat-syarat isbat nikah: <br>
             1. Surat permohonan rangkap 4. <br> 
             2. Fotocopy KTP suami istri. <br>
@@ -537,7 +539,7 @@ export default {
             this.showBotVoice(transcript9);
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript9);
-          } else if (this.transcription_[0] === "syarat pengangkatan anak") {
+          } else if (this.transcription_[0] === "pengangkatan anak") {
             let transcript10 = `Berikut syarat-syarat pengangkatan anak: <br>
             1. Surat nikah orang tua anak. <br>
             2. Akta kelahiran / surat kelahiran anak. <br>
@@ -554,17 +556,17 @@ export default {
             this.showUserVoiceAsText(this.transcription_[0]);
             this.showBotVoiceAsText(transcript10);
           } else if (this.transcription_[0] === "syarat-syarat berperkara") {
-            let transcriptGreeting = `Berikut informasi mengenai syarat-syarat berperkara yang bisa Anda dapatkan: <br>
-            - Syarat pengajuan cerai talak. <br>
-            - Syarat pengajuan cerai gugat. <br>
-            - Syarat gugatan harta bersama. <br>
-            - Syarat gugatan waris. <br>
-            - Syarat dispensasi kawin. <br>
-            - Syarat perwalian. <br>
-            - Syarat izin poligami. <br>
-            - Syarat penetapan ahli waris. <br>
-            - Syarat isbat nikah.  <br>
-            - Syarat pengangkatan anak. <br>
+            let transcriptGreeting = `Syarat perkara apa yang ingin anda ketahui? <br>
+            - Cerai talak. <br>
+            - Cerai gugat. <br>
+            - Harta bersama. <br>
+            - Waris. <br>
+            - Dispensasi kawin. <br>
+            - Perwalian. <br>
+            - Izin poligami. <br>
+            - Penetapan ahli waris. <br>
+            - Isbat nikah.  <br>
+            - Pengangkatan anak. <br>
             Silahkan tentukan pilihan Anda!`;
             this.showBotVoice(transcriptGreeting);
             this.showUserVoiceAsText(this.transcription_[0]);
@@ -582,8 +584,9 @@ export default {
           }
         } else if (
           this.transcription_[0] === "" &&
-          this.placeholderValue === "Listening... Please wait!"
+          this.placeholderValue === "ANYA is listening... Please speak!"
         ) {
+          this.placeholderValue = "ANYA is speaking... Please listen!";
           this.synth.cancel();
           this.botSpeech.text =
             "Maaf, kami tidak mendengar suara Anda. Silahkan coba lagi!";
@@ -601,6 +604,7 @@ export default {
           // required for record voice automatically
           this.botSpeech.onend = function () {
             self.recognizeVoice();
+            self.placeholderValue = "ANYA is listening... Please speak!";
           };
         }
 
@@ -610,6 +614,7 @@ export default {
       this.currentRec.start();
     },
     showBotVoice(transcript) {
+      this.placeholderValue = "ANYA is speaking... Please listen!";
       this.synth.cancel(); // prevent chrome sometimes voice is not found
       this.voiceTimeout = setTimeout(this.voiceTimer, 100000);
       this.botSpeech.text = striptags(transcript);
@@ -681,6 +686,7 @@ export default {
         );
       } else {
         this.recognizeVoice();
+        this.placeholderValue = "ANYA is listening... Please speak!";
       }
     },
   },

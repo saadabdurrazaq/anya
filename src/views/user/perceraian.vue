@@ -325,7 +325,7 @@ export default {
       if (this.placeholderValue === "Send a voice!") {
         this.synth.cancel();
         this.isClicked = true;
-        this.placeholderValue = "Listening... Please wait!";
+        this.placeholderValue = "ANYA is listening... Please speak!";
         $("#fab_send").css({ "background-color": "#42A5F5" });
         $(".icon-to-change").css({ color: "white" });
         this.recognizeVoice();
@@ -482,6 +482,7 @@ export default {
                 }
               }
             } else {
+              this.placeholderValue = "ANYA is speaking... Please listen!";
               this.synth.cancel();
               this.botSpeech.text =
                 "Maaf, pilihan Anda tidak tersedia, silahkan pilih opsi lain!";
@@ -489,13 +490,15 @@ export default {
 
               this.botSpeech.onend = function () {
                 self.recognizeVoice();
+                self.placeholderValue = "ANYA is listening... Please speak!";
               };
             }
           }
         } else if (
           this.transcription_[0] === "" &&
-          this.placeholderValue === "Listening... Please wait!"
+          this.placeholderValue === "ANYA is listening... Please speak!"
         ) {
+          this.placeholderValue = "ANYA is speaking... Please listen!";
           this.synth.cancel();
           this.botSpeech.text =
             "Maaf, kami tidak mendengar suara Anda. Silahkan coba lagi!";
@@ -513,6 +516,7 @@ export default {
           // required for record voice automatically
           this.botSpeech.onend = function () {
             self.recognizeVoice();
+            self.placeholderValue = "ANYA is listening... Please speak!";
           };
         }
 
@@ -522,6 +526,7 @@ export default {
       this.currentRec.start();
     },
     showBotVoiceQuestion(transcript) {
+      this.placeholderValue = "ANYA is speaking... Please listen!";
       this.synth.cancel(); // stop current bot speaking (prevent chrome sometimes voice is not found)
       this.voiceTimeout = setTimeout(this.voiceTimer, 100000);
       this.botSpeech.text = striptags(transcript);
@@ -590,6 +595,7 @@ export default {
         });
       } else {
         this.recognizeVoice();
+        this.placeholderValue = "ANYA is listening... Please speak!";
       }
     },
     saveDataToDB() {
