@@ -11,7 +11,7 @@
                 :src="`${publicPath}sidebar-left.png`"
               />
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
               <div
                 style="
                   text-align: center;
@@ -38,7 +38,7 @@
               <!-- chat box -->
               <div
                 class="card card-danger direct-chat direct-chat-danger chat"
-                style="display:none; top:10%; width: 90%;margin-bottom:100px;"
+                style="display:none; top:10%; width: 100%;margin-bottom:100px;"
               >
                 <div class="card-header">
                   <div class="chat_option">
@@ -140,7 +140,7 @@
                     name="chat_message"
                     :placeholder="placeholderValue"
                     class="chat_field chat_message"
-                    style="margin-top: 10px; width:83%;"
+                    style="margin-top: 10px; width:75%; font-size:12px"
                     disabled
                   ></textarea>
                 </div>
@@ -149,9 +149,9 @@
             </div>
              <div
               class="col-md-1"
-              style="margin-bottom:10px;"
+              style="margin-left: 100px;"
             >
-              <img style="min-height:85vh;width:120%;max-width: 400px;height: auto;" :src="`${publicPath}anya.png`" />
+              <img style="min-height:85vh;width:120px;max-width: 400px;height: auto;" :src="`${publicPath}anya.png`" />
             </div>
           </div>
         </div>
@@ -325,10 +325,10 @@ export default {
       if (this.placeholderValue === "Klik microphone untuk memulai!") {
         this.synth.cancel();
         this.isClicked = true;
-        this.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
         $("#fab_send").css({ "background-color": "#42A5F5" });
         $(".icon-to-change").css({ color: "white" });
         this.recognizeVoice();
+        this.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
       } else {
         if (this.synth.speaking) {
           // if bot still speaking
