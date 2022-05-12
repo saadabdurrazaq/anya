@@ -190,6 +190,7 @@ export default {
       $(".chat").hide();
       $(".anya").hide();
       $(".chat").toggleClass("is-visible");
+      $(".fab").toggleClass("is-visible");
       this.synth.cancel();
     },
     toggleFab() {
@@ -198,7 +199,7 @@ export default {
       $(".prime").toggleClass("is-active");
       $(".prime").toggleClass("is-visible");
       $("#prime").toggleClass("is-float");
-      $(".chat").toggleClass("is-visible");
+      $(".chat").toggleClass("is-visible"); 
       $(".fab").toggleClass("is-visible");
       this.hideChat(0);
 

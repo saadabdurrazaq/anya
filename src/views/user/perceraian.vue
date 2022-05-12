@@ -248,6 +248,7 @@ export default {
       $(".chat").hide();
       $(".anya").hide();
       $(".chat").toggleClass("is-visible");
+      $(".fab").toggleClass("is-visible");
       this.synth.cancel();
     },
     toggleFab() {
