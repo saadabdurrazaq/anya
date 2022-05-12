@@ -12,7 +12,7 @@
               />
             </div>
             <div class="col-md-6">
-              <div style="text-align: center; position: absolute; top:30%; bottom: 0;left: 0;right: 0; width: 90%">
+              <div style="text-align: center; position: absolute; top:30%; margin-top: 20%; bottom: 0;left: 0;right: 0; width: 90%">
                 <h2>Syarat Berperkara di PA Tulungagung</h2>
                 <br />
                 <h3>
@@ -137,7 +137,7 @@
               <!-- end chat box -->
             </div>
             <div
-              class="col-md-1"
+              class="col-md-1 anya"
               style="margin-left: 100px;"
             >
               <img style="min-height:85vh;width:120px;max-width: 400px;height: auto;" :src="`${publicPath}anya.png`" />
@@ -188,6 +188,8 @@ export default {
   methods: {
     closeChat() {
       $(".chat").hide();
+      $(".anya").hide();
+      $(".chat").toggleClass("is-visible");
       this.synth.cancel();
     },
     toggleFab() {
@@ -202,8 +204,10 @@ export default {
 
       if ($(".is-visible").is(":hidden")) {
         $(".chat").show();
+        $(".anya").show();
       } else {
         $(".chat").hide();
+        $(".anya").hide();
       }
 
       // if user open the chat
