@@ -33,9 +33,7 @@
           >
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'narasi' }" class="nav-link" href="#"
-            >Narasi</router-link
-          >
+          <a class="nav-link" :href="$router.resolve({name: 'narasi'}).href">Narasi</a>
         </li>
       </ul>
     </div>

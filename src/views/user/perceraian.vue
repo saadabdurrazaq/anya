@@ -140,7 +140,7 @@
                     name="chat_message"
                     :placeholder="placeholderValue"
                     class="chat_field chat_message"
-                    style="margin-top: 10px"
+                    style="margin-top: 10px; width:83%;"
                     disabled
                   ></textarea>
                 </div>
@@ -229,7 +229,7 @@ export default {
       synth: window.speechSynthesis,
       voiceList: [],
       botSpeech: new window.SpeechSynthesisUtterance(),
-      placeholderValue: "Send a voice!",
+      placeholderValue: "Klik microphone untuk memulai!",
       isClicked: false,
       currentRec: "",
       //userVoice: "",
@@ -267,13 +267,13 @@ export default {
       this.countOpenFab = this.countOpenFab + 1;
       if ($(".is-visible").is(":hidden") && this.countOpenFab === 1) {
         // show greeting only at the first time
-        let transcriptGreeting = `Selamat datang di Halaman Gugatan Mandiri. Terima kasih telah menghubungi kami. <br>
+        let transcriptGreeting = `Selamat datang di Halaman Gugatan Mandiri. <br>
         <ul>
            <li>Untuk melanjutkan perkara gugatan mandiri, ucapkan <b>gugatan mandiri</b>.</li>
            <li>Untuk mengakses Halaman Utama, ucapkan <b>halaman utama</b>.</li>
            <li>Untuk mengakses halaman syarat-syarat berperkara, ucapkan <b>syarat-syarat berperkara</b>.</li>
         </ul>
-        Silahkan tentukan pilihan Anda!`;
+        `;
         this.greeting(transcriptGreeting);
       } else {
         // if user close the chat, stop window.speechSynthesis(synth.cancel()) and also stop SpeechRecognition()(const recognition)
@@ -322,10 +322,10 @@ export default {
       }
     },
     microphoneClick() {
-      if (this.placeholderValue === "Send a voice!") {
+      if (this.placeholderValue === "Klik microphone untuk memulai!") {
         this.synth.cancel();
         this.isClicked = true;
-        this.placeholderValue = "ANYA is listening... Please speak!";
+        this.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
         $("#fab_send").css({ "background-color": "#42A5F5" });
         $(".icon-to-change").css({ color: "white" });
         this.recognizeVoice();
@@ -343,7 +343,7 @@ export default {
           // required for record voice manually (without if else)
           $("#fab_send").css({ "background-color": "white" });
           $(".icon-to-change").css({ color: "#42A5F5" });
-          this.placeholderValue = "Send a voice!";
+          this.placeholderValue = "Klik microphone untuk memulai!";
           this.synth.cancel(); // stop current bot speaking.
           this.currentRec.stop();
         }
@@ -482,7 +482,7 @@ export default {
                 }
               }
             } else {
-              this.placeholderValue = "ANYA is speaking... Please listen!";
+              this.placeholderValue = "ANYA sedang berbicara... Silahkan dengarkan!";
               this.synth.cancel();
               this.botSpeech.text =
                 "Maaf, pilihan Anda tidak tersedia, silahkan pilih opsi lain!";
@@ -490,15 +490,15 @@ export default {
 
               this.botSpeech.onend = function () {
                 self.recognizeVoice();
-                self.placeholderValue = "ANYA is listening... Please speak!";
+                self.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
               };
             }
           }
         } else if (
           this.transcription_[0] === "" &&
-          this.placeholderValue === "ANYA is listening... Please speak!"
+          this.placeholderValue === "ANYA sedang mendengar... Silahkan berbicara!"
         ) {
-          this.placeholderValue = "ANYA is speaking... Please listen!";
+          this.placeholderValue = "ANYA sedang berbicara... Silahkan dengarkan!";
           this.synth.cancel();
           this.botSpeech.text =
             "Maaf, kami tidak mendengar suara Anda. Silahkan coba lagi!";
@@ -509,14 +509,14 @@ export default {
           // this.botSpeech.onend = function () {
           //   self.synth.cancel();
           // };
-          // this.placeholderValue = "Send a voice!";
+          // this.placeholderValue = "Klik microphone untuk memulai!";
           // $("#fab_send").css({ "background-color": "white" });
           // $(".icon-to-change").css({ color: "#42A5F5" });
 
           // required for record voice automatically
           this.botSpeech.onend = function () {
             self.recognizeVoice();
-            self.placeholderValue = "ANYA is listening... Please speak!";
+            self.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
           };
         }
 
@@ -526,7 +526,7 @@ export default {
       this.currentRec.start();
     },
     showBotVoiceQuestion(transcript) {
-      this.placeholderValue = "ANYA is speaking... Please listen!";
+      this.placeholderValue = "ANYA sedang berbicara... Silahkan dengarkan!";
       this.synth.cancel(); // stop current bot speaking (prevent chrome sometimes voice is not found)
       this.voiceTimeout = setTimeout(this.voiceTimer, 100000);
       this.botSpeech.text = striptags(transcript);
@@ -549,7 +549,7 @@ export default {
       }
 
       // required for record voice manually
-      // this.placeholderValue = "Send a voice!";
+      // this.placeholderValue = "Klik microphone untuk memulai!";
       // $("#fab_send").css({ "background-color": "white" });
       // $(".icon-to-change").css({ color: "#42A5F5" });
     },
@@ -595,7 +595,7 @@ export default {
         });
       } else {
         this.recognizeVoice();
-        this.placeholderValue = "ANYA is listening... Please speak!";
+        this.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
       }
     },
     saveDataToDB() {

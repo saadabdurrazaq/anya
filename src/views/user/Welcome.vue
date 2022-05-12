@@ -147,7 +147,7 @@
                       name="chat_message"
                       :placeholder="placeholderValue"
                       class="chat_field chat_message"
-                      style="margin-top: 10px"
+                      style="margin-top: 10px; width:83%;"
                       disabled
                     ></textarea>
                   </div>
@@ -194,7 +194,7 @@ export default {
       synth: window.speechSynthesis,
       voiceList: [],
       botSpeech: new window.SpeechSynthesisUtterance(),
-      placeholderValue: "Send a voice!",
+      placeholderValue: "Klik microphone untuk memulai!",
       isClicked: false,
       currentRec: "",
       //userVoice: "",
@@ -297,10 +297,10 @@ export default {
       }
     },
     microphoneClick() {
-      if (this.placeholderValue === "Send a voice!") {
+      if (this.placeholderValue === "Klik microphone untuk memulai!") {
         this.synth.cancel(); // stop current bot speaking.
         this.isClicked = true;
-        this.placeholderValue = "ANYA is listening... Please speak!";
+        this.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
         $("#fab_send").css({ "background-color": "#42A5F5" });
         $(".icon-to-change").css({ color: "white" });
         this.recognizeVoice();
@@ -318,7 +318,7 @@ export default {
           // required for record voice manually (without if else)
           $("#fab_send").css({ "background-color": "white" });
           $(".icon-to-change").css({ color: "#42A5F5" });
-          this.placeholderValue = "Send a voice!";
+          this.placeholderValue = "Klik microphone untuk memulai!";
           this.synth.cancel(); // stop current bot speaking.
           this.currentRec.stop();
         }
@@ -347,11 +347,10 @@ export default {
         this.voiceList = this.synth.getVoices();
       };
       let transcriptGreeting = `Selamat datang di Pengadilan Agama Tulungagung. 
-      Terima kasih telah menghubungi kami. Menu apa yang ingin Anda akses? <br>
+      Menu apa yang ingin Anda akses? <br>
       - <b>Syarat Berperkara.</b> <br>
          atau <br>
-      - <b>Gugatan Mandiri</b> ? <br>
-      Silahkan tentukan pilihan Anda!`;
+      - <b>Gugatan Mandiri</b> ?`;
       this.botSpeech.text = striptags(transcriptGreeting);
       let voices = window.speechSynthesis.getVoices();
       this.botSpeech.voice = voices[11];
@@ -435,7 +434,7 @@ export default {
             this.transcription_[0] !== "gugatan Mandiri"
           ) {
             // required for record voice automatically
-            this.placeholderValue = "ANYA is speaking... Please listen!";
+            this.placeholderValue = "ANYA sedang berbicara... Silahkan dengarkan!";
             this.synth.cancel();
             this.botSpeech.text =
               "Maaf, pilihan Anda tidak tersedia, silahkan pilih opsi lain!";
@@ -443,7 +442,7 @@ export default {
 
             this.botSpeech.onend = function () {
               self.recognizeVoice();
-              self.placeholderValue = "ANYA is listening... Please speak!";
+              self.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
             };
           }
 
@@ -460,9 +459,9 @@ export default {
           }
         } else if (
           this.transcription_[0] === "" &&
-          this.placeholderValue === "ANYA is listening... Please speak!"
+          this.placeholderValue === "ANYA sedang mendengar... Silahkan berbicara!"
         ) {
-          this.placeholderValue = "ANYA is speaking... Please listen!";
+          this.placeholderValue = "ANYA sedang berbicara... Silahkan dengarkan!";
           this.synth.cancel();
           this.botSpeech.text =
             "Maaf, kami tidak mendengar suara Anda. Silahkan coba lagi!";
@@ -473,14 +472,14 @@ export default {
           // this.botSpeech.onend = function () {
           //   self.synth.cancel();
           // };
-          // this.placeholderValue = "Send a voice!";
+          // this.placeholderValue = "Klik microphone untuk memulai!";
           // $("#fab_send").css({ "background-color": "white" });
           // $(".icon-to-change").css({ color: "#42A5F5" });
 
           // required for record voice automatically
           this.botSpeech.onend = function () {
             self.recognizeVoice();
-            self.placeholderValue = "ANYA is listening... Please speak!";
+            self.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
           };
         }
 
@@ -490,14 +489,14 @@ export default {
       this.currentRec.start();
     },
     showBotVoice(transcript) {
-      this.placeholderValue = "ANYA is speaking... Please listen!";
+      this.placeholderValue = "ANYA sedang berbicara... Silahkan dengarkan!";
       this.synth.cancel(); // prevent chrome sometimes voice is not found
       this.voiceTimeout = setTimeout(this.voiceTimer, 100000);
       this.botSpeech.text = striptags(transcript);
       this.synth.speak(this.botSpeech);
       //this.currentRec.stop(); // required for record voice manually
       if (this.botSpeech.onend) {
-        this.placeholderValue = "ANYA is listening... Please speak!";
+        this.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
         this.botSpeech.onend = function () {
           clearTimeout(this.voiceTimeout);
         };
@@ -513,7 +512,7 @@ export default {
       }
 
       // required for record voice manually
-      // this.placeholderValue = "Send a voice!";
+      // this.placeholderValue = "Klik microphone untuk memulai!";
       // $("#fab_send").css({ "background-color": "white" });
       // $(".icon-to-change").css({ color: "#42A5F5" });
     },

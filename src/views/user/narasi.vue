@@ -115,6 +115,9 @@ export default {
       form: new Form({
         narration: "",
       }),
+      runtimeTranscription_: "",
+      transcription_: [],
+      currentRec: "",
     };
   },
   methods: {
@@ -126,8 +129,48 @@ export default {
     closeMsg() {
       $("#errMsg").hide("slow");
     },
+    recognizeVoice() {
+      window.SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new window.SpeechRecognition();
+      recognition.lang = this.lang_;
+      recognition.interimResults = true;
+
+      // event current voice reco word
+      recognition.addEventListener("result", (event) => {
+        var text = Array.from(event.results)
+          .map((result) => result[0])
+          .map((result) => result.transcript)
+          .join("");
+        this.runtimeTranscription_ = text;
+      });
+
+      this.currentRec = recognition;
+
+      this.requestOption();
+    },
+    requestOption() {
+      console.log("listening...");
+      
+      // end of transcription
+      this.currentRec.addEventListener("end", () => {
+        this.transcription_ = [];
+        this.transcription_.push(this.runtimeTranscription_);
+
+        if (
+          this.transcription_[0] === "" 
+        ) {
+          this.synth.cancel();
+        }
+
+        this.runtimeTranscription_ = "";
+        this.currentRec.stop();
+      });
+      this.currentRec.start();
+    },
     loadData() {
       window.speechSynthesis.cancel();
+      //this.recognizeVoice()
       this.form.narration = localStorage.getItem("narration");
     },
     downloadPDF() {
