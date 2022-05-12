@@ -276,7 +276,11 @@ export default {
         $("#fab_send").css({ "background-color": "#42A5F5" });
         $(".icon-to-change").css({ color: "white" });
         this.recognizeVoice();
-        this.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
+        this.placeholderValue = "Mohon tunggu sebentar...";
+        var self = this;
+        setTimeout(function() {
+          self.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
+        }, 1000);
       } else {
         if (this.synth.speaking) {
           // if bot still speaking
