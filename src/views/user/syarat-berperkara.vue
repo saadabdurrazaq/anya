@@ -277,10 +277,13 @@ export default {
         $(".icon-to-change").css({ color: "white" });
         this.recognizeVoice();
         this.placeholderValue = "Mohon tunggu sebentar...";
+        $(".chat_field").addClass('user_waiting');
         var self = this;
         setTimeout(function() {
           self.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
-        }, 1000);
+          $(".chat_field").removeClass('user_waiting');
+          $(".chat_field").addClass('anya_listening'); 
+        }, 2000);
       } else {
         if (this.synth.speaking) {
           // if bot still speaking
@@ -296,6 +299,9 @@ export default {
           $("#fab_send").css({ "background-color": "white" });
           $(".icon-to-change").css({ color: "#42A5F5" });
           this.placeholderValue = "Klik microphone untuk memulai!";
+          $(".chat_field").removeClass('user_waiting');
+          $(".chat_field").removeClass('anya_listening'); 
+          $(".chat_field").addClass('anya_speaking');  
           this.synth.cancel(); // stop current bot speaking.
           this.currentRec.stop();
         }
@@ -427,6 +433,9 @@ export default {
 
             // required for record voice automatically
             this.placeholderValue = "ANYA sedang berbicara... Silahkan dengarkan!";
+            $(".chat_field").removeClass('user_waiting');
+            $(".chat_field").removeClass('anya_listening');
+            $(".chat_field").addClass('anya_speaking'); 
             this.synth.cancel();
             this.botSpeech.text =
               "Maaf, pilihan Anda tidak tersedia, silahkan pilih opsi lain!";
@@ -435,6 +444,9 @@ export default {
             this.botSpeech.onend = function () {
               self.recognizeVoice();
               self.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
+              $(".chat_field").removeClass('anya_speaking');
+              $(".chat_field").removeClass('user_waiting');
+              $(".chat_field").addClass('anya_listening'); 
             };
           }
 
@@ -596,6 +608,9 @@ export default {
           this.placeholderValue === "ANYA sedang mendengar... Silahkan berbicara!"
         ) {
           this.placeholderValue = "ANYA sedang berbicara... Silahkan dengarkan!";
+          $(".chat_field").removeClass('user_waiting');
+          $(".chat_field").removeClass('anya_listening');
+          $(".chat_field").addClass('anya_speaking'); 
           this.synth.cancel();
           this.botSpeech.text =
             "Maaf, kami tidak mendengar suara Anda. Silahkan coba lagi!";
@@ -614,6 +629,9 @@ export default {
           this.botSpeech.onend = function () {
             self.recognizeVoice();
             self.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
+            $(".chat_field").removeClass('anya_speaking');
+            $(".chat_field").removeClass('user_waiting');
+            $(".chat_field").addClass('anya_listening'); 
           };
         }
 
@@ -624,6 +642,9 @@ export default {
     },
     showBotVoice(transcript) {
       this.placeholderValue = "ANYA sedang berbicara... Silahkan dengarkan!";
+      $(".chat_field").removeClass('user_waiting');
+      $(".chat_field").removeClass('anya_listening');
+      $(".chat_field").addClass('anya_speaking'); 
       this.synth.cancel(); // prevent chrome sometimes voice is not found
       this.voiceTimeout = setTimeout(this.voiceTimer, 100000);
       this.botSpeech.text = striptags(transcript);
@@ -696,6 +717,9 @@ export default {
       } else {
         this.recognizeVoice();
         this.placeholderValue = "ANYA sedang mendengar... Silahkan berbicara!";
+        $(".chat_field").removeClass('anya_speaking');
+        $(".chat_field").removeClass('user_waiting');
+        $(".chat_field").addClass('anya_listening'); 
       }
     },
   },
@@ -1009,6 +1033,21 @@ a {
   box-shadow: none;
   line-height: 40px;
   font-size: 15px;
+}
+
+.anya_speaking::placeholder { 
+  color: #8e8e8e;
+  font-weight: bold;
+}
+
+.anya_listening::placeholder { 
+  color: #008450;
+  font-weight: bold;
+}
+
+.user_waiting::placeholder { 
+  color: #B81D13;
+  font-weight: bold;
 }
 
 .chat_field {
